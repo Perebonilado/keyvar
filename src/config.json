@@ -1,0 +1,16 @@
+{
+  "local": {
+    "databaseHost": "localhost",
+    "databasePort": 3306,
+    "databaseUsername": "root",
+    "databasePassword": "Pass123",
+    "database": "keyvar"
+  },
+  "production": {
+    "databaseHost": "",
+    "databasePort": "",
+    "databaseUsername": "",
+    "databasePassword": "",
+    "database": ""
+  }
+}
