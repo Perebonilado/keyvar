@@ -5,6 +5,7 @@ import { Services } from '../models/Services';
 import { JobApplicant } from '../models/JobApplicant';
 import { BusinessLead } from '../models/BusinessLead';
 import { NewsInsightSubscriber } from '../models/NewsInsightSubscriber';
+import { BusinessEnquiry } from '../models/BusinessEnquiry';
 
 export let sequelize: Sequelize;
 
@@ -29,6 +30,7 @@ export const databaseProviders = [
         JobApplicant,
         BusinessLead,
         NewsInsightSubscriber,
+        BusinessEnquiry
       ]);
       return sequelize;
     },

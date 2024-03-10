@@ -1,5 +1,13 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { BaseModel } from './BaseModel';
+import { BusinessEnquiry } from './BusinessEnquiry';
 
 @Table({ tableName: 'business_lead' })
 export class BusinessLead extends Model<BusinessLead, BaseModel> {
@@ -37,4 +45,7 @@ export class BusinessLead extends Model<BusinessLead, BaseModel> {
     field: 'phone',
   })
   phone: string;
+
+  @HasMany(() => BusinessEnquiry, 'business_lead_id')
+  businessEnquiry: BusinessEnquiry;
 }
