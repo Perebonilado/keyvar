@@ -34,8 +34,11 @@ export const databaseProviders = [
         NewsInsightSubscriber,
         BusinessEnquiry,
         JobApplication,
-        JobStatus
+        JobStatus,
       ]);
+
+      await sequelize.sync();
+      
       return sequelize;
     },
   },

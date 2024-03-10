@@ -1,13 +1,13 @@
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import { BaseModel } from './BaseModel';
 import { JobApplication } from './JobApplication';
+import * as moment from 'moment';
 
 @Table({ tableName: 'job_role' })
-export class JobRole extends Model<JobRole, BaseModel> {
+export class JobRole extends Model<JobRole> {
   @Column({
-    type: DataType.UUIDV4,
+    type: DataType.UUID,
     allowNull: false,
-    defaultValue: DataType.UUIDV4,
+    defaultValue: DataType.UUID,
     primaryKey: true,
   })
   id: string;
@@ -25,6 +25,27 @@ export class JobRole extends Model<JobRole, BaseModel> {
     field: 'is_active',
   })
   isActive: boolean;
+
+  @Column({
+    type: DataType.DATE,
+    field: 'created_on',
+    allowNull: true,
+    defaultValue: moment(new Date()).utc().toDate(),
+  })
+  createdOn: Date;
+
+  @Column({
+    type: DataType.BIGINT,
+    field: 'created_by',
+    allowNull: true,
+  })
+  createdBy: number;
+
+  @Column({ type: DataType.DATE, field: 'modified_on', allowNull: true })
+  modifiedOn: Date;
+
+  @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
+  modifiedBy: number;
 
   @HasMany(() => JobApplication, 'job_role_id')
   jobApplication: JobApplication;

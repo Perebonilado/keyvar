@@ -1,12 +1,12 @@
 import { Column, Model, DataType } from 'sequelize-typescript';
-import dayjs from 'DayJsConfig';
+import * as moment from 'moment';
 
 export class BaseModel extends Model<BaseModel> {
   @Column({
     type: DataType.DATE,
     field: 'created_on',
     allowNull: true,
-    defaultValue: dayjs.utc().toDate(),
+    defaultValue: moment(new Date()).utc().toDate(),
   })
   createdOn: Date;
 

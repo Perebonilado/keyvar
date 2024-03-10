@@ -3,18 +3,17 @@ import {
   Column,
   Model,
   DataType,
-  ForeignKey,
   HasMany,
 } from 'sequelize-typescript';
-import { BaseModel } from './BaseModel';
 import { BusinessEnquiry } from './BusinessEnquiry';
+import * as moment from 'moment';
 
 @Table({ tableName: 'business_lead' })
-export class BusinessLead extends Model<BusinessLead, BaseModel> {
+export class BusinessLead extends Model<BusinessLead> {
   @Column({
-    type: DataType.UUIDV4,
+    type: DataType.UUID,
     allowNull: false,
-    defaultValue: DataType.UUIDV4,
+    defaultValue: DataType.UUID,
     primaryKey: true,
   })
   id: string;
@@ -45,6 +44,27 @@ export class BusinessLead extends Model<BusinessLead, BaseModel> {
     field: 'phone',
   })
   phone: string;
+
+  @Column({
+    type: DataType.DATE,
+    field: 'created_on',
+    allowNull: true,
+    defaultValue: moment(new Date()).utc().toDate(),
+  })
+  createdOn: Date;
+
+  @Column({
+    type: DataType.BIGINT,
+    field: 'created_by',
+    allowNull: true,
+  })
+  createdBy: number;
+
+  @Column({ type: DataType.DATE, field: 'modified_on', allowNull: true })
+  modifiedOn: Date;
+
+  @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
+  modifiedBy: number;
 
   @HasMany(() => BusinessEnquiry, 'business_lead_id')
   businessEnquiry: BusinessEnquiry;
