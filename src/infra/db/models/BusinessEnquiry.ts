@@ -27,17 +27,9 @@ export class BusinessEnquiry extends Model<BusinessEnquiry, BaseModel> {
   })
   enquiry: string;
 
-  @ForeignKey(() => Service)
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    field: 'service_id',
-  })
-  serviceId: string;
-
   @ForeignKey(() => BusinessLead)
   @Column({
-    type: DataType.STRING,
+    type: DataType.UUIDV4,
     allowNull: false,
     field: 'business_lead_id',
   })

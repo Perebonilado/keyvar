@@ -6,6 +6,8 @@ import { JobApplicant } from '../models/JobApplicant';
 import { BusinessLead } from '../models/BusinessLead';
 import { NewsInsightSubscriber } from '../models/NewsInsightSubscriber';
 import { BusinessEnquiry } from '../models/BusinessEnquiry';
+import { JobApplication } from '../models/JobApplication';
+import { JobStatus } from '../models/JobStatus';
 
 export let sequelize: Sequelize;
 
@@ -31,6 +33,8 @@ export const databaseProviders = [
         BusinessLead,
         NewsInsightSubscriber,
         BusinessEnquiry,
+        JobApplication,
+        JobStatus
       ]);
       return sequelize;
     },

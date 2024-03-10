@@ -4,11 +4,11 @@ import {
   Model,
   DataType,
   ForeignKey,
-  BelongsTo
 } from 'sequelize-typescript';
 import { BaseModel } from './BaseModel';
 import { JobApplicant } from './JobApplicant';
 import { JobRole } from './JobRole';
+import { JobStatusEnum } from 'src/infra/web/models/JobStatus';
 
 @Table({ tableName: 'job_application' })
 export class JobApplication extends Model<JobApplication, BaseModel> {
@@ -19,6 +19,13 @@ export class JobApplication extends Model<JobApplication, BaseModel> {
     primaryKey: true,
   })
   id: string;
+
+  @Column({
+    allowNull: false,
+    field: 'job_status',
+    type: DataType.INTEGER
+  })
+  jobStatus: JobStatusEnum
 
   @ForeignKey(() => JobApplicant)
   @Column({

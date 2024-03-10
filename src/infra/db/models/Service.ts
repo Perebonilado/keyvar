@@ -26,6 +26,4 @@ export class Service extends Model<Service, BaseModel> {
   })
   isActive: boolean;
 
-  @HasMany(() => BusinessEnquiry, 'service_id')
-  businessEnquiry: BusinessEnquiry;
 }
