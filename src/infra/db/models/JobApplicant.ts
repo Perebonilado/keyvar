@@ -1,5 +1,6 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
 import { BaseModel } from './BaseModel';
+import { JobApplication } from './JobApplication';
 
 @Table({ tableName: 'job_applicant' })
 export class JobApplicant extends Model<JobApplicant, BaseModel> {
@@ -51,4 +52,7 @@ export class JobApplicant extends Model<JobApplicant, BaseModel> {
     field: 'resume',
   })
   resume: string;
+
+  @HasMany(() => JobApplication, 'job_applicant_id')
+  jobApplication: JobApplication;
 }

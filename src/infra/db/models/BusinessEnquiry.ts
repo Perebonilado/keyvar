@@ -8,6 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { BaseModel } from './BaseModel';
 import { BusinessLead } from './BusinessLead';
+import { Service } from './Service';
 
 @Table({ tableName: 'business_enquiry' })
 export class BusinessEnquiry extends Model<BusinessEnquiry, BaseModel> {
@@ -22,10 +23,11 @@ export class BusinessEnquiry extends Model<BusinessEnquiry, BaseModel> {
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    field: 'lead_id',
+    field: 'enquiry',
   })
-  leadId: string;
+  enquiry: string;
 
+  @ForeignKey(() => Service)
   @Column({
     type: DataType.STRING,
     allowNull: false,
@@ -33,17 +35,11 @@ export class BusinessEnquiry extends Model<BusinessEnquiry, BaseModel> {
   })
   serviceId: string;
 
+  @ForeignKey(() => BusinessLead)
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    field: 'enquiry',
+    field: 'business_lead_id',
   })
-  enquiry: string;
-
-  @ForeignKey(() => BusinessLead)
-  @Column({ type: DataType.STRING, allowNull: false, field: 'business_lead_id' })
   businessLeadId: string;
-
-  @HasOne(() => BusinessLead)
-  businessLead: BusinessLead;
 }

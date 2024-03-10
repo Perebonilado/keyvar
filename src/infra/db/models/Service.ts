@@ -1,8 +1,9 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
 import { BaseModel } from './BaseModel';
+import { BusinessEnquiry } from './BusinessEnquiry';
 
-@Table({ tableName: 'services' })
-export class Services extends Model<Services, BaseModel> {
+@Table({ tableName: 'service' })
+export class Service extends Model<Service, BaseModel> {
   @Column({
     type: DataType.UUIDV4,
     allowNull: false,
@@ -24,4 +25,7 @@ export class Services extends Model<Services, BaseModel> {
     field: 'is_active',
   })
   isActive: boolean;
+
+  @HasMany(() => BusinessEnquiry, 'service_id')
+  businessEnquiry: BusinessEnquiry;
 }
