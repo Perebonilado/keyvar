@@ -1,5 +1,6 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
 import { BaseModel } from './BaseModel';
+import { JobApplicant } from './JobApplicant';
 
 @Table({ tableName: 'job_role' })
 export class JobRole extends Model<JobRole, BaseModel> {
@@ -24,4 +25,7 @@ export class JobRole extends Model<JobRole, BaseModel> {
     field: 'is_active',
   })
   isActive: boolean;
+
+  @HasMany(() => JobApplicant)
+  jobApplicant: JobApplicant;
 }
