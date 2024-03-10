@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
+import { NewsLetterController } from './controllers/NewsLetterController';
 
 @Module({
   imports: [],
-  controllers: [],
+  controllers: [NewsLetterController],
   providers: [],
 })
 export class InfraWebModule {}
