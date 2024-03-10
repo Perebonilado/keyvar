@@ -1,6 +1,10 @@
 import { Sequelize } from 'sequelize-typescript';
 import { EnvironmentVariables } from 'src/EnvironmentVariables';
 import { JobRole } from '../models/JobRole';
+import { Services } from '../models/Services';
+import { JobApplicant } from '../models/JobApplicant';
+import { BusinessLead } from '../models/BusinessLead';
+import { NewsInsightSubscriber } from '../models/NewsInsightSubscriber';
 
 export let sequelize: Sequelize;
 
@@ -19,7 +23,13 @@ export const databaseProviders = [
         logQueryParameters: false,
         define: { timestamps: false },
       });
-      sequelize.addModels([JobRole]);
+      sequelize.addModels([
+        JobRole,
+        Services,
+        JobApplicant,
+        BusinessLead,
+        NewsInsightSubscriber,
+      ]);
       return sequelize;
     },
   },
