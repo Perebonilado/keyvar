@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { EnvironmentVariables } from 'src/EnvironmentVariables';
+import { JobRole } from '../models/JobRole';
 
 export let sequelize: Sequelize;
 
@@ -18,7 +19,7 @@ export const databaseProviders = [
         logQueryParameters: false,
         define: { timestamps: false },
       });
-      sequelize.addModels([]);
+      sequelize.addModels([JobRole]);
       return sequelize;
     },
   },
