@@ -7,7 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import CreateNewsInsightSubscriberHandler from 'src/business/handlers/NewsInsight/CreateNewsInsightSubscriberHandler';
-import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsight';
+import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsightDto';
 import { NewsInsightSubscriberWebModel } from '../models/NewsInsightSubscriber';
 import { SuccessResponse } from '../models/SuccessReponse';
 import { NewsInsightQueryService } from 'src/query/NewsInsigtQueryService';

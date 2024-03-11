@@ -1,4 +1,4 @@
-import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsight';
+import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsightDto';
 import CommandRequest from './CommandRequest';
 
 export default interface CreateNewsInsightSubscriberRequest

@@ -6,7 +6,7 @@ import {
   Inject,
   Post,
 } from '@nestjs/common';
-import { BusinessEnquiryDto } from 'src/dto/Enquiry';
+import { BusinessEnquiryDto } from 'src/dto/BusinessEnquiryDto';
 import { SuccessResponse } from '../models/SuccessReponse';
 import { BusinessEnquiryWebModel } from '../models/BusinessEnquiry';
 

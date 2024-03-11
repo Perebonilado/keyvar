@@ -1,3 +1,4 @@
+import { ServicesEnum } from 'src/infra/web/models/Services';
 import { BusinessEnquiryCreated } from '../events/BusinessEnquiry/BusinessEnquiryCreated';
 import { AbstractDomain } from './AbstractDomain';
 
@@ -6,10 +7,12 @@ export class BusinessEnquiry extends AbstractDomain {
   private _enquiry: string;
   private _businessLeadId: string;
   private _createdOn?: Date;
+  private _service: ServicesEnum;
 
   constructor(
     enquiry: string,
     businessLeadId: string,
+    service: ServicesEnum,
     id?: string,
     createdOn?: Date,
   ) {
@@ -19,9 +22,12 @@ export class BusinessEnquiry extends AbstractDomain {
 
     this._businessLeadId = businessLeadId;
 
+    this._service = service;
+
     this._enquiry = enquiry;
 
     this._createdOn = createdOn;
+
   }
 
   get id(): string {
@@ -34,6 +40,10 @@ export class BusinessEnquiry extends AbstractDomain {
 
   get businessLeadId(): string {
     return this._businessLeadId;
+  }
+
+  get service(): ServicesEnum {
+    return this.service;
   }
 
   get createdOn(): Date {

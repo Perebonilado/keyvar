@@ -1,4 +1,4 @@
-import { BusinessEnquiryDto } from 'src/dto/Enquiry';
+import { BusinessEnquiryDto } from 'src/dto/BusinessEnquiryDto';
 import CommandRequest from './CommandRequest';
 
 export default interface CreateNewBusinessEnquiryRequest
