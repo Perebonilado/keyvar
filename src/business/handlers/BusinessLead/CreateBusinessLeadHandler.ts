@@ -76,12 +76,10 @@ export class CreateBusinessLeadHandler extends AbstractRequestHandlerTemplate<
   public createRequestResponse(
     events: BusinessLeadCreated[],
   ): CreateBusinessLeadResponse {
-    return new CreateBusinessLeadResponse(
-      this.createdNewInsightSubscriber(events),
-    );
+    return new CreateBusinessLeadResponse(this.createdNewBusinessLead(events));
   }
 
-  public createdNewInsightSubscriber(events: BusinessLeadCreated[]) {
+  public createdNewBusinessLead(events: BusinessLeadCreated[]) {
     const createdEvents = events.filter(
       (event) => event instanceof BusinessLeadCreated,
     );
