@@ -21,7 +21,7 @@ export class BusinessEnquiryController {
     private businessEnquiryQueryService: BusinessEnquiryQueryService,
   ) {}
 
-  @Post()
+  @Post('/make-enquiry')
   async submitBusinessEnquiry(
     @Body() payload: BusinessEnquiryDto,
   ): Promise<SuccessResponse<BusinessEnquiryWebModel>> {

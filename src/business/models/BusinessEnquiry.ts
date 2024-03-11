@@ -6,8 +6,8 @@ export class BusinessEnquiry extends AbstractDomain {
   private _id?: string;
   private _enquiry: string;
   private _businessLeadId: string;
-  private _createdOn?: Date;
   private _service: ServicesEnum;
+  private _createdOn?: Date;
 
   constructor(
     enquiry: string,
@@ -27,7 +27,6 @@ export class BusinessEnquiry extends AbstractDomain {
     this._enquiry = enquiry;
 
     this._createdOn = createdOn;
-
   }
 
   get id(): string {
@@ -43,7 +42,7 @@ export class BusinessEnquiry extends AbstractDomain {
   }
 
   get service(): ServicesEnum {
-    return this.service;
+    return this._service;
   }
 
   get createdOn(): Date {

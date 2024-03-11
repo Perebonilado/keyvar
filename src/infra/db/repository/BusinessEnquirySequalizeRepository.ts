@@ -20,8 +20,10 @@ export class BusinessEnquirySequalizeRepository
       return await this.dbConnector.create({
         enquiry: businessEnquiry.enquiry,
         businessLeadId: businessEnquiry.businessLeadId,
+        service: businessEnquiry.service
       } as BusinessEnquiryModel);
     } catch (error) {
+      console.log(error)
       throw new RepositoryError('Failed to save business enquiry').InnerError(
         error,
       );

@@ -29,7 +29,7 @@ export class BusinessEnquiryModel extends Model<BusinessEnquiryModel> {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'service',
+    field: 'service_id',
   })
   service: ServicesEnum;
 
