@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { BusinessEnquiry } from 'src/business/models/BusinessEnquiry';
-import { BusinessEnquiryRepository } from 'src/business/repository/BusinessEnquiry';
+import { BusinessEnquiryRepository } from 'src/business/repository/BusinessEnquiryRepository';
 import { BusinessEnquiryModel } from '../models/BusinessEnquiryModel';
 import RepositoryError from 'src/error-handlers/infra/RepositoryError';
 import { BusinessEnquiryDbConnector } from '../connectors/BusinessEnquiryDbConnector';

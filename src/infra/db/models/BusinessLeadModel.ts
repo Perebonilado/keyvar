@@ -1,13 +1,20 @@
-import { Table, Column, Model, DataType, HasMany, BeforeCreate } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  HasMany,
+  BeforeCreate,
+} from 'sequelize-typescript';
 import { BusinessEnquiryModel } from './BusinessEnquiryModel';
 import * as moment from 'moment';
 import { generateUUID } from 'src/utils';
+import { BusinessLeadWebModel } from 'src/infra/web/models/BusinessLead';
 
 @Table({ tableName: 'business_lead' })
 export class BusinessLeadModel extends Model<BusinessLeadModel> {
   @Column({
     type: DataType.UUID,
-    allowNull: false,
     primaryKey: true,
   })
   id: string;
@@ -30,6 +37,7 @@ export class BusinessLeadModel extends Model<BusinessLeadModel> {
     type: DataType.STRING,
     allowNull: false,
     field: 'email',
+    unique: true,
   })
   email: string;
 
@@ -48,17 +56,17 @@ export class BusinessLeadModel extends Model<BusinessLeadModel> {
   createdOn: Date;
 
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.UUID,
     field: 'created_by',
     allowNull: true,
   })
-  createdBy: number;
+  createdBy: string;
 
   @Column({ type: DataType.DATE, field: 'modified_on', allowNull: true })
   modifiedOn: Date;
 
-  @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
-  modifiedBy: number;
+  @Column({ type: DataType.UUID, field: 'modified_by', allowNull: true })
+  modifiedBy: string;
 
   @HasMany(() => BusinessEnquiryModel, 'business_lead_id')
   businessEnquiry: BusinessEnquiryModel;
@@ -66,5 +74,19 @@ export class BusinessLeadModel extends Model<BusinessLeadModel> {
   @BeforeCreate
   static addUUID(instance: BusinessLeadModel) {
     instance.id = generateUUID();
+  }
+
+  public toDomain(): BusinessLeadWebModel {
+    return {
+      id: this.id,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      phone: this.phone ?? null,
+      createdOn: this.createdOn ?? null,
+      createdBy: this.createdBy ?? null,
+      modifiedOn: this.modifiedOn ?? null,
+      modifiedBy: this.modifiedBy ?? null,
+    };
   }
 }

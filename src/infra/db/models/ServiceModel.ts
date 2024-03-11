@@ -34,18 +34,18 @@ export class ServiceModel extends Model<ServiceModel> {
   createdOn: Date;
 
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.UUID,
     field: 'created_by',
     allowNull: true,
   })
-  createdBy: number;
+  createdBy: string;
 
   @Column({ type: DataType.DATE, field: 'modified_on', allowNull: true })
   modifiedOn: Date;
 
-  @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
-  modifiedBy: number;
-
+  @Column({ type: DataType.UUID, field: 'modified_by', allowNull: true })
+  modifiedBy: string;
+  
   @BeforeCreate
   static addUUID(instance: ServiceModel) {
     instance.id = generateUUID();
