@@ -9,6 +9,7 @@ import {
 import { BusinessLeadModel } from './BusinessLeadModel';
 import * as moment from 'moment';
 import { generateUUID } from 'src/utils';
+import { ServicesEnum } from 'src/infra/web/models/Services';
 
 @Table({ tableName: 'business_enquiry' })
 export class BusinessEnquiryModel extends Model<BusinessEnquiryModel> {
@@ -24,6 +25,13 @@ export class BusinessEnquiryModel extends Model<BusinessEnquiryModel> {
     field: 'enquiry',
   })
   enquiry: string;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'service',
+  })
+  service: ServicesEnum;
 
   @ForeignKey(() => BusinessLeadModel)
   @Column({

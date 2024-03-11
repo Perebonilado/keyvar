@@ -32,7 +32,8 @@ export class CreateBusinessEnquiryHandler extends AbstractRequestHandlerTemplate
     transactionSequelize?: Transaction,
   ): Promise<BusinessEvent[]> {
     try {
-      const { email, firstName, lastName, phone, enquiry } = request.payload;
+      const { email, firstName, lastName, phone, enquiry, service } =
+        request.payload;
       const existingBusinessLead =
         await this.businessLeadQueryService.findByEmail(email);
 
@@ -49,7 +50,11 @@ export class CreateBusinessEnquiryHandler extends AbstractRequestHandlerTemplate
         const createdLead =
           await this.businessLeadQueryService.findByEmail(email);
 
-        const newBusinessEnquiry = new BusinessEnquiry(enquiry, createdLead.id);
+        const newBusinessEnquiry = new BusinessEnquiry(
+          enquiry,
+          createdLead.id,
+          service,
+        );
 
         newBusinessEnquiry.create();
 
@@ -61,6 +66,7 @@ export class CreateBusinessEnquiryHandler extends AbstractRequestHandlerTemplate
       const newBusinessEnquiry = new BusinessEnquiry(
         enquiry,
         existingBusinessLead.id,
+        service,
       );
       newBusinessEnquiry.create();
 
