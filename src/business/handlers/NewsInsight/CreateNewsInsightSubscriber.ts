@@ -33,12 +33,16 @@ export default class CreateNewsInsightSubscriberHandler extends AbstractRequestH
         await this.newsInsightQueryService.findOneByEmail(
           request.subscriber.email,
         );
+
       if (subscriberExists) {
-        throw new HttpException('subscriber already exists', HttpStatus.BAD_REQUEST)
+        throw new HttpException(
+          'subscriber already exists',
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       const newInsightSubscriber = new NewsInsightSubscriber(
-        request.subscriber.email,
+        request.subscriber.email.toLowerCase(),
       );
 
       newInsightSubscriber.create();

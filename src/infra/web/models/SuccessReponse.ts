@@ -1,5 +1,5 @@
-export interface SuccessResponse {
+export interface SuccessResponse <T> {
   status: number;
   message: string;
-  data: any;
+  data: T;
 }

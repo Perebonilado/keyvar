@@ -8,34 +8,39 @@ import {
 } from '@nestjs/common';
 import CreateNewsInsightSubscriberHandler from 'src/business/handlers/NewsInsight/CreateNewsInsightSubscriber';
 import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsight';
-import { NewsInsightSubscriber } from '../models/NewsInsightSubscriber';
+import { NewsInsightSubscriberWebModel } from '../models/NewsInsightSubscriber';
 import { SuccessResponse } from '../models/SuccessReponse';
+import { NewsInsightQueryService } from 'src/query/NewsInsigtQueryService';
 
 @Controller('news-insight')
 export class NewsInsightController {
   constructor(
     @Inject(CreateNewsInsightSubscriberHandler)
     private createNewsInsightSubscriberHandler: CreateNewsInsightSubscriberHandler,
+    @Inject(NewsInsightQueryService)
+    private newsInsightQueryService: NewsInsightQueryService,
   ) {}
 
   @Post('/subscribe')
   async subscribe(
     @Body() payload: CreateNewsInsightSubscriberDto,
-  ): Promise<SuccessResponse> {
+  ): Promise<SuccessResponse<NewsInsightSubscriberWebModel>> {
     try {
-      const { newsInsightSubscriber } =
-        await this.createNewsInsightSubscriberHandler.handle({
-          subscriber: payload,
-        });
+      await this.createNewsInsightSubscriberHandler.handle({
+        subscriber: payload,
+      });
+
+      const createdSubscriber =
+        await this.newsInsightQueryService.findOneByEmail(payload.email);
 
       return {
-        data: { email: newsInsightSubscriber.email },
+        data: createdSubscriber.toDomain(),
         message: 'News Insight Subscriber successfully created',
         status: HttpStatus.CREATED,
       };
     } catch (error) {
       throw new HttpException(
-        error?._innerError ?? "Failed to save subscriber email",
+        error?._innerError ?? 'Failed to save subscriber email',
         HttpStatus.BAD_REQUEST,
       );
     }

@@ -10,8 +10,9 @@ export class NewsInsightQueryService {
 
   public async findOneByEmail(email: string) {
     try {
-      return await this.dbConnector.findOneByEmail(email);
+      return await this.dbConnector.findOneByEmail(email.toLowerCase());
     } catch (error) {
+      console.log(error);
       throw new QueryError(
         'Failed to find insight subscriber by email',
       ).InnerError(error);

@@ -10,15 +10,11 @@ export class NewsInsightSequalizeRepository implements NewsInsightRepository {
     @Inject(NewsInsightDbConnector) private dbConnector: NewsInsightDbConnector,
   ) {}
 
-  async create(
-    subscriber: NewsInsightSubscriber,
-  ): Promise<NewsInsightSubscriber> {
+  async create(subscriber: NewsInsightSubscriber) {
     try {
-      const createdSubscriber = await this.dbConnector.create({
+      return await this.dbConnector.create({
         email: subscriber.email,
       } as NewsInsightSubscriberModel);
-
-      return NewsInsightSubscriberModel.toDomain(createdSubscriber);
     } catch (error) {
       throw new RepositoryError(
         'Failed to create news insight subscriber',
