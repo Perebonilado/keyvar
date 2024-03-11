@@ -1,13 +1,13 @@
 import { Sequelize } from 'sequelize-typescript';
 import { EnvironmentVariables } from 'src/EnvironmentVariables';
-import { JobRole } from '../models/JobRole';
-import { Service } from '../models/Service';
-import { JobApplicant } from '../models/JobApplicant';
-import { BusinessLead } from '../models/BusinessLead';
-import { NewsInsightSubscriber } from '../models/NewsInsightSubscriber';
-import { BusinessEnquiry } from '../models/BusinessEnquiry';
-import { JobApplication } from '../models/JobApplication';
-import { JobStatus } from '../models/JobStatus';
+import { JobRoleModel } from '../models/JobRoleModel';
+import { ServiceModel } from '../models/ServiceModel';
+import { JobApplicantModel } from '../models/JobApplicantModel';
+import { BusinessLeadModel } from '../models/BusinessLeadModel';
+import { NewsInsightSubscriberModel } from '../models/NewsInsightSubscriberModel';
+import { BusinessEnquiryModel } from '../models/BusinessEnquiryModel';
+import { JobApplicationModel } from '../models/JobApplicationModel';
+import { JobStatusModel } from '../models/JobStatusModel';
 
 export let sequelize: Sequelize;
 
@@ -27,18 +27,18 @@ export const databaseProviders = [
         define: { timestamps: false },
       });
       sequelize.addModels([
-        JobRole,
-        Service,
-        JobApplicant,
-        BusinessLead,
-        NewsInsightSubscriber,
-        BusinessEnquiry,
-        JobApplication,
-        JobStatus,
+        JobRoleModel,
+        ServiceModel,
+        JobApplicantModel,
+        BusinessLeadModel,
+        NewsInsightSubscriberModel,
+        BusinessEnquiryModel,
+        JobApplicationModel,
+        JobStatusModel,
       ]);
 
       await sequelize.sync();
-      
+
       return sequelize;
     },
   },

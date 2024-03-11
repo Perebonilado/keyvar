@@ -1,15 +1,13 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, BeforeCreate } from 'sequelize-typescript';
 import * as moment from 'moment';
+import { generateUUID } from 'src/utils';
 
-@Table({ tableName: 'job_status' })
-export class JobStatus extends Model<JobStatus> {
+@Table({ tableName: 'service' })
+export class ServiceModel extends Model<ServiceModel> {
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
     allowNull: false,
-    defaultValue: DataType.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
-    unique: true,
   })
   id: string;
 
@@ -19,6 +17,13 @@ export class JobStatus extends Model<JobStatus> {
     field: 'title',
   })
   title: string;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    field: 'is_active',
+  })
+  isActive: boolean;
 
   @Column({
     type: DataType.DATE,
@@ -40,4 +45,10 @@ export class JobStatus extends Model<JobStatus> {
 
   @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
   modifiedBy: number;
+
+  @BeforeCreate
+  static addUUID(instance: ServiceModel) {
+    instance.id = generateUUID();
+  }
+
 }

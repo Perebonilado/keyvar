@@ -4,28 +4,35 @@ import {
   Model,
   DataType,
   ForeignKey,
+  BeforeCreate,
 } from 'sequelize-typescript';
-import { JobApplicant } from './JobApplicant';
-import { JobRole } from './JobRole';
-import { JobStatusEnum } from 'src/infra/web/models/JobStatus';
+import { BusinessLeadModel } from './BusinessLeadModel';
 import * as moment from 'moment';
+import { generateUUID } from 'src/utils';
 
-@Table({ tableName: 'job_application' })
-export class JobApplication extends Model<JobApplication> {
+@Table({ tableName: 'business_enquiry' })
+export class BusinessEnquiryModel extends Model<BusinessEnquiryModel> {
   @Column({
     type: DataType.UUID,
     allowNull: false,
-    defaultValue: DataType.UUID,
     primaryKey: true,
   })
   id: string;
 
   @Column({
+    type: DataType.STRING,
     allowNull: false,
-    field: 'job_status',
-    type: DataType.INTEGER
+    field: 'enquiry',
   })
-  jobStatus: JobStatusEnum
+  enquiry: string;
+
+  @ForeignKey(() => BusinessLeadModel)
+  @Column({
+    type: DataType.UUID,
+    allowNull: false,
+    field: 'business_lead_id',
+  })
+  businessLeadId: string;
 
   @Column({
     type: DataType.DATE,
@@ -48,20 +55,8 @@ export class JobApplication extends Model<JobApplication> {
   @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
   modifiedBy: number;
 
-  @ForeignKey(() => JobApplicant)
-  @Column({
-    field: 'job_applicant_id',
-    type: DataType.UUID,
-    allowNull: false,
-  })
-  jobApplicantId: string;
-
-  @ForeignKey(() => JobRole)
-  @Column({
-    field: 'job_role_id',
-    type: DataType.UUID,
-    allowNull: false,
-  })
-  jobRoleId: string;
-
+  @BeforeCreate
+  static addUUID(instance: BusinessEnquiryModel) {
+    instance.id = generateUUID();
+  }
 }

@@ -1,19 +1,13 @@
-import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  HasMany,
-} from 'sequelize-typescript';
-import { BusinessEnquiry } from './BusinessEnquiry';
+import { Table, Column, Model, DataType, HasMany, BeforeCreate } from 'sequelize-typescript';
+import { BusinessEnquiryModel } from './BusinessEnquiryModel';
 import * as moment from 'moment';
+import { generateUUID } from 'src/utils';
 
 @Table({ tableName: 'business_lead' })
-export class BusinessLead extends Model<BusinessLead> {
+export class BusinessLeadModel extends Model<BusinessLeadModel> {
   @Column({
     type: DataType.UUID,
     allowNull: false,
-    defaultValue: DataType.UUID,
     primaryKey: true,
   })
   id: string;
@@ -66,6 +60,11 @@ export class BusinessLead extends Model<BusinessLead> {
   @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
   modifiedBy: number;
 
-  @HasMany(() => BusinessEnquiry, 'business_lead_id')
-  businessEnquiry: BusinessEnquiry;
+  @HasMany(() => BusinessEnquiryModel, 'business_lead_id')
+  businessEnquiry: BusinessEnquiryModel;
+
+  @BeforeCreate
+  static addUUID(instance: BusinessLeadModel) {
+    instance.id = generateUUID();
+  }
 }

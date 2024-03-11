@@ -1,13 +1,13 @@
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
-import { JobApplication } from './JobApplication';
+import { Table, Column, Model, DataType, HasMany, BeforeCreate } from 'sequelize-typescript';
+import { JobApplicationModel } from './JobApplicationModel';
 import * as moment from 'moment';
+import { generateUUID } from 'src/utils';
 
 @Table({ tableName: 'job_applicant' })
-export class JobApplicant extends Model<JobApplicant> {
+export class JobApplicantModel extends Model<JobApplicantModel> {
   @Column({
     type: DataType.UUID,
     allowNull: false,
-    defaultValue: DataType.UUID,
     primaryKey: true,
   })
   id: string;
@@ -74,6 +74,11 @@ export class JobApplicant extends Model<JobApplicant> {
   @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
   modifiedBy: number;
 
-  @HasMany(() => JobApplication, 'job_applicant_id')
-  jobApplication: JobApplication;
+  @HasMany(() => JobApplicationModel, 'job_applicant_id')
+  jobApplication: JobApplicationModel;
+
+  @BeforeCreate
+  static addUUID(instance: JobApplicantModel) {
+    instance.id = generateUUID();
+  }
 }
