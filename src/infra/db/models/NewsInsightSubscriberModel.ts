@@ -15,6 +15,7 @@ export class NewsInsightSubscriberModel extends Model<NewsInsightSubscriberModel
     type: DataType.STRING,
     allowNull: false,
     field: 'email',
+    unique: true
   })
   email: string;
 
@@ -25,19 +26,6 @@ export class NewsInsightSubscriberModel extends Model<NewsInsightSubscriberModel
     defaultValue: moment(new Date()).utc().toDate(),
   })
   createdOn?: Date;
-
-  @Column({
-    type: DataType.BIGINT,
-    field: 'created_by',
-    allowNull: true,
-  })
-  createdBy?: number;
-
-  @Column({ type: DataType.DATE, field: 'modified_on', allowNull: true })
-  modifiedOn?: Date;
-
-  @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
-  modifiedBy?: number;
 
   @BeforeCreate
   static addUUID(instance: NewsInsightSubscriberModel) {
@@ -51,9 +39,6 @@ export class NewsInsightSubscriberModel extends Model<NewsInsightSubscriberModel
       newsInsightSubscriber.id,
       newsInsightSubscriber.email,
       newsInsightSubscriber.createdOn,
-      newsInsightSubscriber.createdBy.toString(),
-      newsInsightSubscriber.modifiedOn,
-      newsInsightSubscriber.modifiedBy,
     );
   }
 }

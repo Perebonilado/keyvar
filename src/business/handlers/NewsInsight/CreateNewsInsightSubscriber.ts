@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import AbstractRequestHandlerTemplate from '../AbstractRequestHandlerTemplate';
 import CreateNewsInsightSubscriberRequest from '../request/CreateNewsInsightSubscriberRequest';
 import CreateNewsInsightSubscriberResponse from '../response/CreateNewInsightSubscriberResponse';
@@ -8,6 +8,7 @@ import { NewsInsightSubscriberCreated } from 'src/business/events/NewsInsight/Ne
 import { NewsInsightRepository } from 'src/business/repository/NewsInsightRepository';
 import { NewsInsightSubscriber } from 'src/business/models/NewsInsightSubscriber';
 import { HandlerError } from 'src/error-handlers/business/HandlerError';
+import { NewsInsightQueryService } from 'src/query/NewsInsigtQueryService';
 
 @Injectable()
 export default class CreateNewsInsightSubscriberHandler extends AbstractRequestHandlerTemplate<
@@ -17,6 +18,8 @@ export default class CreateNewsInsightSubscriberHandler extends AbstractRequestH
   constructor(
     @Inject(NewsInsightRepository)
     private newsInsightRepository: NewsInsightRepository,
+    @Inject(NewsInsightQueryService)
+    private newsInsightQueryService: NewsInsightQueryService,
   ) {
     super();
   }
@@ -26,6 +29,14 @@ export default class CreateNewsInsightSubscriberHandler extends AbstractRequestH
     transactionSequelize?: Transaction,
   ): Promise<BusinessEvent[]> {
     try {
+      const subscriberExists =
+        await this.newsInsightQueryService.findOneByEmail(
+          request.subscriber.email,
+        );
+      if (subscriberExists) {
+        throw new HttpException('subscriber already exists', HttpStatus.BAD_REQUEST)
+      }
+
       const newInsightSubscriber = new NewsInsightSubscriber(
         request.subscriber.email,
       );

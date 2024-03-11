@@ -8,6 +8,8 @@ import {
 } from '@nestjs/common';
 import CreateNewsInsightSubscriberHandler from 'src/business/handlers/NewsInsight/CreateNewsInsightSubscriber';
 import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsight';
+import { NewsInsightSubscriber } from '../models/NewsInsightSubscriber';
+import { SuccessResponse } from '../models/SuccessReponse';
 
 @Controller('news-insight')
 export class NewsInsightController {
@@ -17,14 +19,23 @@ export class NewsInsightController {
   ) {}
 
   @Post('/subscribe')
-  async subscribe(@Body() payload: CreateNewsInsightSubscriberDto) {
+  async subscribe(
+    @Body() payload: CreateNewsInsightSubscriberDto,
+  ): Promise<SuccessResponse> {
     try {
-      return await this.createNewsInsightSubscriberHandler.handle({
-        subscriber: payload,
-      });
+      const { newsInsightSubscriber } =
+        await this.createNewsInsightSubscriberHandler.handle({
+          subscriber: payload,
+        });
+
+      return {
+        data: { email: newsInsightSubscriber.email },
+        message: 'News Insight Subscriber successfully created',
+        status: HttpStatus.CREATED,
+      };
     } catch (error) {
       throw new HttpException(
-        'Failed to create news letter subscriber',
+        error?._innerError ?? "Failed to save subscriber email",
         HttpStatus.BAD_REQUEST,
       );
     }

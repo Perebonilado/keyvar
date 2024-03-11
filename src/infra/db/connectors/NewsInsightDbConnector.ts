@@ -10,10 +10,19 @@ export class NewsInsightDbConnector {
     try {
       return await NewsInsightSubscriberModel.create(subscriber);
     } catch (error) {
-      console.log(error)
       throw new DatabaseError('Failed to save subscriber to db').InnerError(
         error,
       );
+    }
+  }
+
+  public async findOneByEmail(email: string) {
+    try {
+      return await NewsInsightSubscriberModel.findOne({ where: { email } });
+    } catch (error) {
+      throw new DatabaseError(
+        'Failed to find news insight subscriber by email',
+      ).InnerError(error);
     }
   }
 }
