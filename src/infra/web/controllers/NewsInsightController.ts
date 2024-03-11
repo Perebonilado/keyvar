@@ -6,7 +6,7 @@ import {
   Inject,
   Post,
 } from '@nestjs/common';
-import CreateNewsInsightSubscriberHandler from 'src/business/handlers/NewsInsight/CreateNewsInsightSubscriber';
+import CreateNewsInsightSubscriberHandler from 'src/business/handlers/NewsInsight/CreateNewsInsightSubscriberHandler';
 import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsight';
 import { NewsInsightSubscriberWebModel } from '../models/NewsInsightSubscriber';
 import { SuccessResponse } from '../models/SuccessReponse';
