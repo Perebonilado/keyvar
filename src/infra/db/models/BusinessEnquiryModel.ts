@@ -14,7 +14,6 @@ import { generateUUID } from 'src/utils';
 export class BusinessEnquiryModel extends Model<BusinessEnquiryModel> {
   @Column({
     type: DataType.UUID,
-    allowNull: false,
     primaryKey: true,
   })
   id: string;
@@ -42,21 +41,17 @@ export class BusinessEnquiryModel extends Model<BusinessEnquiryModel> {
   })
   createdOn: Date;
 
-  @Column({
-    type: DataType.BIGINT,
-    field: 'created_by',
-    allowNull: true,
-  })
-  createdBy: number;
-
-  @Column({ type: DataType.DATE, field: 'modified_on', allowNull: true })
-  modifiedOn: Date;
-
-  @Column({ type: DataType.BIGINT, field: 'modified_by', allowNull: true })
-  modifiedBy: number;
-
   @BeforeCreate
   static addUUID(instance: BusinessEnquiryModel) {
     instance.id = generateUUID();
+  }
+
+  public toDomain() {
+    return {
+      id: this.id,
+      enquiry: this.enquiry,
+      businessLeadId: this.businessLeadId,
+      createdOn: this.createdOn,
+    };
   }
 }

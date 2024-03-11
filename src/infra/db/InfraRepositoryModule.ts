@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { InfraDbModule } from './InfraDbModule';
 import { NewsInsightSequalizeRepository } from './repository/NewsInsightSequalizeRepository';
 import { NewsInsightRepository } from 'src/business/repository/NewsInsightRepository';
+import { BusinessEnquiryRepository } from 'src/business/repository/BusinessEnquiry';
+import { BusinessEnquirySequalizeRepository } from './repository/BusinessEnquirySequalizeRepository';
 
 @Module({
   imports: [InfraDbModule],
@@ -9,6 +11,10 @@ import { NewsInsightRepository } from 'src/business/repository/NewsInsightReposi
     {
       provide: NewsInsightRepository,
       useClass: NewsInsightSequalizeRepository,
+    },
+    {
+      provide: BusinessEnquiryRepository,
+      useClass: BusinessEnquirySequalizeRepository,
     },
   ],
   exports: [NewsInsightRepository],
