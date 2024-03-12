@@ -5,6 +5,7 @@ import { InfraDbModule } from './infra/db/InfraDbModule';
 import { InfraRepositoryModule } from './infra/db/InfraRepositoryModule';
 import { QueryModule } from './query/QueryModule';
 import { BusinessModule } from './business/BusinessModule';
+import { IntegrationsModule } from './integrations/IntegrationsModule';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { BusinessModule } from './business/BusinessModule';
     InfraRepositoryModule,
     QueryModule,
     BusinessModule,
+    IntegrationsModule
   ],
   providers: [],
 })

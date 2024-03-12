@@ -6,6 +6,10 @@ export interface Config {
   databaseUsername: string;
   databasePassword: string;
   database: string;
+  awsAccessKey: string;
+  awsSecretKey: string;
+  awsStorageBucket: string;
+  awsServerLocation: string;
 }
 
 export class EnvironmentVariables {

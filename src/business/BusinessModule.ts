@@ -5,9 +5,10 @@ import CreateNewsInsightSubscriberHandler from './handlers/NewsInsight/CreateNew
 import KeyvarEventEmitter from './events/KeyvarEventEmitter';
 import { CreateBusinessLeadHandler } from './handlers/BusinessLead/CreateBusinessLeadHandler';
 import { CreateBusinessEnquiryHandler } from './handlers/BusinessEnquiry/CreateBusinessEnquiryHandler';
+import { IntegrationsModule } from 'src/integrations/IntegrationsModule';
 
 @Module({
-  imports: [QueryModule, InfraRepositoryModule],
+  imports: [QueryModule, InfraRepositoryModule, IntegrationsModule],
   providers: [
     KeyvarEventEmitter,
     CreateNewsInsightSubscriberHandler,
