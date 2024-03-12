@@ -1,21 +1,7 @@
-import * as envConfigs from './config.json';
-
-export interface Config {
-  databaseHost: string;
-  databasePort: number;
-  databaseUsername: string;
-  databasePassword: string;
-  database: string;
-  awsAccessKey: string;
-  awsSecretKey: string;
-  awsStorageBucket: string;
-  awsServerLocation: string;
-}
+import envConfig, { Config } from './config';
 
 export class EnvironmentVariables {
   public static get config(): Config {
-    const ENV: string = process.env.NODE_ENV || 'local';
-
-    return envConfigs[ENV];
+    return envConfig();
   }
 }
