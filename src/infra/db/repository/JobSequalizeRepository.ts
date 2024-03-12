@@ -14,7 +14,14 @@ export class JobSequalizeRepository implements JobRepository {
     applicant: JobApplicant,
   ): Promise<JobApplicantModel> {
     try {
-      return await this.dbConnect.createJobApplicant({} as JobApplicantModel);
+      return await this.dbConnect.createJobApplicant({
+        firstName: applicant.firstName,
+        lastName: applicant.lastName,
+        email: applicant.email,
+        phone: applicant.phone ?? null,
+        experience: applicant.experience,
+        resume: applicant.resume,
+      } as JobApplicantModel);
     } catch (error) {
       throw new RepositoryError('Error saving applicant').InnerError(error);
     }
@@ -24,7 +31,11 @@ export class JobSequalizeRepository implements JobRepository {
     application: JobApplication,
   ): Promise<JobApplicationModel> {
     try {
-      return await this.dbConnect.createJobApplication({} as JobApplicationModel)
+      return await this.dbConnect.createJobApplication({
+        jobStatus: application.jobStatus,
+        jobApplicantId: application.jobApplicantId,
+        jobRoleId: application.jobRoleId,
+      } as JobApplicationModel);
     } catch (error) {
       throw new RepositoryError('Error saving application').InnerError(error);
     }
