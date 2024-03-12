@@ -46,7 +46,6 @@ export class JobController {
         status: HttpStatus.CREATED,
       };
     } catch (error) {
-      console.log(error);
       throw new HttpException(
         error?._innerError ?? 'Something went wrong while saving your application',
         HttpStatus.BAD_REQUEST,

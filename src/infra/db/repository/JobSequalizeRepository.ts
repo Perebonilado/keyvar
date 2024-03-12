@@ -24,7 +24,6 @@ export class JobSequalizeRepository implements JobRepository {
         isWorkAuthorization: applicant.isWorkAuthorization,
       } as JobApplicantModel);
     } catch (error) {
-      console.log(error)
       throw new RepositoryError('Error saving applicant').InnerError(error);
     }
   }

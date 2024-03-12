@@ -23,7 +23,6 @@ export class BusinessEnquirySequalizeRepository
         service: businessEnquiry.service
       } as BusinessEnquiryModel);
     } catch (error) {
-      console.log(error)
       throw new RepositoryError('Failed to save business enquiry').InnerError(
         error,
       );

@@ -10,7 +10,6 @@ export class BusinessEnquiryDbConnector {
     try {
       return await BusinessEnquiryModel.create(enquiry);
     } catch (error) {
-      console.log(error)
       throw new DatabaseError('Failed to save business enquiry').InnerError(
         error,
       );

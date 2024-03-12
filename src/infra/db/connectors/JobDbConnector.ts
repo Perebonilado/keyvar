@@ -11,7 +11,6 @@ export class JobDbConnector {
     try {
       return await JobApplicationModel.create(jobApplication);
     } catch (error) {
-      console.log(error)
       throw new DatabaseError('Failed to save job application').InnerError(
         error,
       );
