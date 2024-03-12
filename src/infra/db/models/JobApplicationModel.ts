@@ -16,7 +16,6 @@ import { generateUUID } from 'src/utils';
 export class JobApplicationModel extends Model<JobApplicationModel> {
   @Column({
     type: DataType.UUID,
-    allowNull: false,
     primaryKey: true,
   })
   id: string;

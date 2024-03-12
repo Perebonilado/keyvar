@@ -1,4 +1,11 @@
-import { Table, Column, Model, DataType, HasMany, BeforeCreate } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  HasMany,
+  BeforeCreate,
+} from 'sequelize-typescript';
 import { JobApplicationModel } from './JobApplicationModel';
 import * as moment from 'moment';
 import { generateUUID } from 'src/utils';
@@ -7,7 +14,6 @@ import { generateUUID } from 'src/utils';
 export class JobApplicantModel extends Model<JobApplicantModel> {
   @Column({
     type: DataType.UUID,
-    allowNull: false,
     primaryKey: true,
   })
   id: string;
@@ -52,6 +58,13 @@ export class JobApplicantModel extends Model<JobApplicantModel> {
     field: 'resume',
   })
   resume: string;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    field: 'work_authorization',
+  })
+  isWorkAuthorization: boolean;
 
   @Column({
     type: DataType.DATE,

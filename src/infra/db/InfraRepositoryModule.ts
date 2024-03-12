@@ -6,6 +6,8 @@ import { BusinessEnquiryRepository } from 'src/business/repository/BusinessEnqui
 import { BusinessEnquirySequalizeRepository } from './repository/BusinessEnquirySequalizeRepository';
 import { BusinessLeadRepository } from 'src/business/repository/BusinessLeadRepository';
 import { BusinessLeadSequalizeRepository } from './repository/BusinessLeadSequalizeRepository';
+import { JobRepository } from 'src/business/repository/JobRepository';
+import { JobSequalizeRepository } from './repository/JobSequalizeRepository';
 
 @Module({
   imports: [InfraDbModule],
@@ -22,11 +24,16 @@ import { BusinessLeadSequalizeRepository } from './repository/BusinessLeadSequal
       provide: BusinessLeadRepository,
       useClass: BusinessLeadSequalizeRepository,
     },
+    {
+      provide: JobRepository,
+      useClass: JobSequalizeRepository,
+    },
   ],
   exports: [
     NewsInsightRepository,
     BusinessEnquiryRepository,
     BusinessLeadRepository,
+    JobRepository
   ],
 })
 export class InfraRepositoryModule {}

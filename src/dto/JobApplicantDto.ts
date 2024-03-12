@@ -4,4 +4,5 @@ export interface JobApplicantDto {
   email: string;
   experience: string;
   resume: string;
+  isWorkAuthorization: boolean;
 }

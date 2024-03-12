@@ -9,6 +9,7 @@ export class JobApplicant extends AbstractDomain {
   private _phone?: string;
   private _experience: string;
   private _resume: string;
+  private _isWorkAuthorization: boolean;
   private _createdOn?: Date;
   private _createdBy?: string;
   private _modifiedBy?: string;
@@ -20,6 +21,7 @@ export class JobApplicant extends AbstractDomain {
     email: string,
     experience: string,
     resume: string,
+    isWorkAuthorization: boolean,
     id?: string,
     phone?: string,
     createdOn?: Date,
@@ -38,6 +40,8 @@ export class JobApplicant extends AbstractDomain {
     this._id = id;
 
     this._experience = experience;
+
+    this._isWorkAuthorization = isWorkAuthorization;
 
     this._resume = resume;
 
@@ -74,6 +78,10 @@ export class JobApplicant extends AbstractDomain {
 
   get experience(): string {
     return this._experience;
+  }
+
+  get isWorkAuthorization(): boolean {
+    return this._isWorkAuthorization;
   }
 
   get resume(): string {

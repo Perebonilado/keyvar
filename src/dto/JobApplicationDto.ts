@@ -5,6 +5,6 @@ export interface JobApplicationDto {
   email: string;
   phone?: string;
   experience: string;
-  resume: Blob;
+  resume: Express.Multer.File;
   isWorkAuthorization: boolean;
 }
