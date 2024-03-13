@@ -5,23 +5,24 @@ import {
   HttpStatus,
   Inject,
   Post,
+  UsePipes,
 } from '@nestjs/common';
 import { BusinessEnquiryDto } from 'src/dto/BusinessEnquiryDto';
 import { SuccessResponse } from '../models/SuccessReponse';
 import { BusinessEnquiryWebModel } from '../models/BusinessEnquiry';
 import { CreateBusinessEnquiryHandler } from 'src/business/handlers/BusinessEnquiry/CreateBusinessEnquiryHandler';
-import { BusinessEnquiryQueryService } from 'src/query/BusinessEnquiryQueryService';
+import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
+import { SubmitBusinessEnquirySchema } from '../zod-validation-schemas/BusinessEnquiryValidationSchema';
 
 @Controller('enquiry')
 export class BusinessEnquiryController {
   constructor(
     @Inject(CreateBusinessEnquiryHandler)
     private createBusinessEnquiryHandler: CreateBusinessEnquiryHandler,
-    @Inject(BusinessEnquiryQueryService)
-    private businessEnquiryQueryService: BusinessEnquiryQueryService,
   ) {}
 
   @Post('/make-enquiry')
+  @UsePipes(new ZodValidationPipe(SubmitBusinessEnquirySchema))
   async submitBusinessEnquiry(
     @Body() payload: BusinessEnquiryDto,
   ): Promise<SuccessResponse<BusinessEnquiryWebModel>> {

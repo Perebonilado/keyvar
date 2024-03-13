@@ -7,11 +7,14 @@ import {
   Post,
   UploadedFile,
   UseInterceptors,
+  UsePipes,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateJobApplicationHandler } from 'src/business/handlers/Job/CreateJobApplicationHandler';
 import { JobApplicationDto } from 'src/dto/JobApplicationDto';
 import { SuccessResponse } from '../models/SuccessReponse';
+import { SaveJobApplication } from '../zod-validation-schemas/JobValidationSchema';
+import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
 
 @Controller('job')
 export class JobController {
@@ -22,6 +25,7 @@ export class JobController {
 
   @Post('/apply')
   @UseInterceptors(FileInterceptor('resume'))
+  @UsePipes(new ZodValidationPipe(SaveJobApplication))
   async saveJobApplication(
     @UploadedFile() file: Express.Multer.File,
     @Body() body: JobApplicationDto,

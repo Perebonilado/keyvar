@@ -5,12 +5,15 @@ import {
   HttpStatus,
   Inject,
   Post,
+  UsePipes,
 } from '@nestjs/common';
 import CreateNewsInsightSubscriberHandler from 'src/business/handlers/NewsInsight/CreateNewsInsightSubscriberHandler';
 import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsightDto';
 import { NewsInsightSubscriberWebModel } from '../models/NewsInsightSubscriber';
 import { SuccessResponse } from '../models/SuccessReponse';
 import { NewsInsightQueryService } from 'src/query/NewsInsigtQueryService';
+import { SubscribeInsightValidationSchema } from '../zod-validation-schemas/NewsInsightValidationSchema';
+import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
 
 @Controller('news-insight')
 export class NewsInsightController {
@@ -22,6 +25,7 @@ export class NewsInsightController {
   ) {}
 
   @Post('/subscribe')
+  @UsePipes(new ZodValidationPipe(SubscribeInsightValidationSchema))
   async subscribe(
     @Body() payload: CreateNewsInsightSubscriberDto,
   ): Promise<SuccessResponse<NewsInsightSubscriberWebModel>> {

@@ -40,10 +40,17 @@ export class CreateJobApplicationHandler extends AbstractRequestHandlerTemplate<
         );
 
       if (!existingApplicant) {
+        if (!request.payload.resume) {
+          throw new HttpException(
+            'Please attach a resume',
+            HttpStatus.BAD_REQUEST,
+          );
+        }
+
         const uploadedResume = await this.storageBucketService.uploadFile(
           request.payload.resume,
         );
-        
+
         await this.createJobApplicationHandler.handle({
           payload: {
             email: request.payload.email,
