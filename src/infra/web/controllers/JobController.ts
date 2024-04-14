@@ -7,25 +7,25 @@ import {
   Post,
   UploadedFile,
   UseInterceptors,
-  UsePipes,
+  Get,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateJobApplicationHandler } from 'src/business/handlers/Job/CreateJobApplicationHandler';
 import { JobApplicationDto } from 'src/dto/JobApplicationDto';
 import { SuccessResponse } from '../models/SuccessReponse';
-import { SaveJobApplication } from '../zod-validation-schemas/JobValidationSchema';
-import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
+import { JobQueryService } from 'src/query/JobQueryService';
+import { JobRoleModel } from 'src/infra/db/models/JobRoleModel';
 
 @Controller('job')
 export class JobController {
   constructor(
     @Inject(CreateJobApplicationHandler)
     private createJobApplicationHandler: CreateJobApplicationHandler,
+    @Inject(JobQueryService) private jobQueryService: JobQueryService,
   ) {}
 
   @Post('/apply')
   @UseInterceptors(FileInterceptor('resume'))
-  @UsePipes(new ZodValidationPipe(SaveJobApplication))
   async saveJobApplication(
     @UploadedFile() file: Express.Multer.File,
     @Body() body: JobApplicationDto,
@@ -51,7 +51,20 @@ export class JobController {
       };
     } catch (error) {
       throw new HttpException(
-        error?._innerError ?? 'Something went wrong while saving your application',
+        error?._innerError ??
+          'Something went wrong while saving your application',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @Get('/roles')
+  public async getJobRoles():Promise<JobRoleModel[]> {
+    try {
+      return await this.jobQueryService.findAllActiveJobRoles();
+    } catch (error) {
+      throw new HttpException(
+        error?._innerError ?? 'Failed to get job roles',
         HttpStatus.BAD_REQUEST,
       );
     }
