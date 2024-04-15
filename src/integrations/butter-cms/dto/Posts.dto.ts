@@ -18,12 +18,12 @@ interface Tag {
   slug: string;
 }
 
-interface Category {
+export interface PostCategoryDto {
   name: string;
   slug: string;
 }
 
-interface Post {
+export interface PostDto {
   status: string;
   created: string;
   updated: string;
@@ -39,7 +39,7 @@ interface Post {
   featured_image: string;
   author: Author;
   tags: Tag[];
-  categories: Category[];
+  categories: PostCategoryDto[];
 }
 
 interface Meta {
@@ -50,5 +50,5 @@ interface Meta {
 
 export interface AllPostsDto {
   meta: Meta;
-  data: Post[];
+  data: PostDto[];
 }

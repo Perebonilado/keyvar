@@ -8,6 +8,7 @@ import {
   UsePipes,
   Get,
   Query,
+  Param,
 } from '@nestjs/common';
 import CreateNewsInsightSubscriberHandler from 'src/business/handlers/NewsInsight/CreateNewsInsightSubscriberHandler';
 import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsightDto';
@@ -65,6 +66,30 @@ export class NewsInsightController {
     } catch (error) {
       throw new HttpException(
         error?._innerError ?? 'Failed to get blog posts',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @Get('/posts/:id')
+  public async getPost(@Param() params: { id: string }) {
+    try {
+      return await this.blogPostsService.getBlogPost(params.id);
+    } catch (error) {
+      throw new HttpException(
+        error?._innerError ?? `Failed to get post with id ${params.id}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @Get('/categories')
+  public async getCategories() {
+    try {
+      return await this.blogPostsService.getPostCategories();
+    } catch (error) {
+      throw new HttpException(
+        error?._innerError ?? `Failed to get categories`,
         HttpStatus.BAD_REQUEST,
       );
     }

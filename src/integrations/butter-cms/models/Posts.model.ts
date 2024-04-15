@@ -8,10 +8,7 @@ interface PostSummary {
     firstName: string;
     lastName: string;
   };
-  category: {
-    name: string;
-    id: string;
-  }[];
+  category: PostCategoryModel[];
   date: string;
 }
 
@@ -20,4 +17,20 @@ export interface PostSummaryModel {
   meta: {
     totalCount: number;
   };
+}
+
+export interface PostModel {
+  id: string;
+  title: string;
+  author: {
+    firstName: string;
+    lastName: string;
+    image: string;
+  };
+  body: string;
+}
+
+export interface PostCategoryModel {
+  name: string;
+  id: string;
 }
