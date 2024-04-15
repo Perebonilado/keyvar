@@ -7,6 +7,7 @@ import {
   Post,
   UsePipes,
   Get,
+  Query,
 } from '@nestjs/common';
 import CreateNewsInsightSubscriberHandler from 'src/business/handlers/NewsInsight/CreateNewsInsightSubscriberHandler';
 import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsightDto';
@@ -16,6 +17,8 @@ import { NewsInsightQueryService } from 'src/query/NewsInsigtQueryService';
 import { SubscribeInsightValidationSchema } from '../zod-validation-schemas/NewsInsightValidationSchema';
 import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
 import { BlogPostsService } from 'src/integrations/butter-cms/services/BlogPostsService';
+import { BlogPostQuery } from 'src/integrations/butter-cms/models/BlogPostsQuery.model';
+import { PostSummaryModel } from 'src/integrations/butter-cms/models/Posts.model';
 
 @Controller('news-insight')
 export class NewsInsightController {
@@ -54,9 +57,11 @@ export class NewsInsightController {
   }
 
   @Get('/posts')
-  public async getBlogPosts() {
+  public async getBlogPosts(
+    @Query() query: BlogPostQuery,
+  ): Promise<PostSummaryModel> {
     try {
-      return await this.blogPostsService.getAllBlogPosts({});
+      return await this.blogPostsService.getAllBlogPosts(query);
     } catch (error) {
       throw new HttpException(
         error?._innerError ?? 'Failed to get blog posts',
