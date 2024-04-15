@@ -8,6 +8,7 @@ export interface Config {
   awsSecretKey: string;
   awsStorageBucket: string;
   awsServerLocation: string;
+  butterCMSApiKey: string;
 }
 
 export default (): Config => ({
@@ -20,4 +21,5 @@ export default (): Config => ({
   awsSecretKey: process.env.Aws_Secret_Key,
   awsStorageBucket: process.env.Aws_Storage_Bucket,
   awsServerLocation: process.env.Aws_Server_Location,
+  butterCMSApiKey: process.env.Butter_CMS_API_KEY,
 });

@@ -6,6 +6,7 @@ import {
   Inject,
   Post,
   UsePipes,
+  Get,
 } from '@nestjs/common';
 import CreateNewsInsightSubscriberHandler from 'src/business/handlers/NewsInsight/CreateNewsInsightSubscriberHandler';
 import { CreateNewsInsightSubscriberDto } from 'src/dto/NewsInsightDto';
@@ -14,6 +15,7 @@ import { SuccessResponse } from '../models/SuccessReponse';
 import { NewsInsightQueryService } from 'src/query/NewsInsigtQueryService';
 import { SubscribeInsightValidationSchema } from '../zod-validation-schemas/NewsInsightValidationSchema';
 import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
+import { BlogPostsService } from 'src/integrations/butter-cms/services/BlogPostsService';
 
 @Controller('news-insight')
 export class NewsInsightController {
@@ -22,6 +24,7 @@ export class NewsInsightController {
     private createNewsInsightSubscriberHandler: CreateNewsInsightSubscriberHandler,
     @Inject(NewsInsightQueryService)
     private newsInsightQueryService: NewsInsightQueryService,
+    @Inject(BlogPostsService) private blogPostsService: BlogPostsService,
   ) {}
 
   @Post('/subscribe')
@@ -45,6 +48,18 @@ export class NewsInsightController {
     } catch (error) {
       throw new HttpException(
         error?._innerError ?? 'Failed to save subscriber email',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @Get('/posts')
+  public async getBlogPosts() {
+    try {
+      return await this.blogPostsService.getAllBlogPosts({});
+    } catch (error) {
+      throw new HttpException(
+        error?._innerError ?? 'Failed to get blog posts',
         HttpStatus.BAD_REQUEST,
       );
     }
