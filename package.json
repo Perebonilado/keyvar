@@ -28,7 +28,6 @@
     "@nestjs/platform-express": "^10.0.0",
     "aws-sdk": "^2.1575.0",
     "axios": "^1.6.8",
-    "buttercms": "^2.0.1",
     "dayjs": "^1.11.10",
     "dayjs-plugin-utc": "^0.1.2",
     "moment": "^2.30.1",
