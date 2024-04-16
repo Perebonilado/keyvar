@@ -19,7 +19,11 @@ import { SubscribeInsightValidationSchema } from '../zod-validation-schemas/News
 import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
 import { BlogPostsService } from 'src/integrations/butter-cms/services/BlogPostsService';
 import { BlogPostQuery } from 'src/integrations/butter-cms/models/BlogPostsQuery.model';
-import { PostSummaryModel } from 'src/integrations/butter-cms/models/Posts.model';
+import {
+  PostCategoryModel,
+  PostModel,
+  PostSummaryModel,
+} from 'src/integrations/butter-cms/models/Posts.model';
 
 @Controller('news-insight')
 export class NewsInsightController {
@@ -72,7 +76,7 @@ export class NewsInsightController {
   }
 
   @Get('/posts/:id')
-  public async getPost(@Param() params: { id: string }) {
+  public async getPost(@Param() params: { id: string }): Promise<PostModel> {
     try {
       return await this.blogPostsService.getBlogPost(params.id);
     } catch (error) {
@@ -84,7 +88,7 @@ export class NewsInsightController {
   }
 
   @Get('/categories')
-  public async getCategories() {
+  public async getCategories():Promise<PostCategoryModel[]> {
     try {
       return await this.blogPostsService.getPostCategories();
     } catch (error) {
