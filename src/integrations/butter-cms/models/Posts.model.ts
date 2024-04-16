@@ -16,6 +16,7 @@ export interface PostSummaryModel {
   data: PostSummary[];
   meta: {
     totalCount: number;
+    nextPage: string;
   };
 }
 
