@@ -58,7 +58,9 @@ export class BlogPostsService {
         }),
         meta: {
           totalCount: response.meta.count,
-          nextPage: response.meta.next_page 
+          nextPage: response.meta.next_page
+            ? Number(response.meta.next_page)
+            : null,
         },
       };
     } catch (error) {
