@@ -1,5 +1,6 @@
 export interface Config {
   databaseHost: string;
+  port: number;
   databasePort: number;
   databaseUsername: string;
   databasePassword: string;
@@ -13,6 +14,7 @@ export interface Config {
 
 export default (): Config => ({
   databaseHost: process.env.Database_Host,
+  port: process.env.port as unknown as number,
   databasePort: process.env.Database_Port as unknown as number,
   databaseUsername: process.env.Database_Username,
   databasePassword: process.env.Database_Password,
