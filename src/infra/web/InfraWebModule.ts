@@ -6,18 +6,20 @@ import { InfraRepositoryModule } from '../db/InfraRepositoryModule';
 import { BusinessEnquiryController } from './controllers/BusinessEnquiryController';
 import { JobController } from './controllers/JobController';
 import { IntegrationsModule } from 'src/integrations/IntegrationsModule';
+import { ServiceController } from './controllers/ServiceController';
 
 @Module({
   imports: [
     BusinessModule,
     QueryModule,
     InfraRepositoryModule,
-    IntegrationsModule
+    IntegrationsModule,
   ],
   controllers: [
     NewsInsightController,
     BusinessEnquiryController,
     JobController,
+    ServiceController,
   ],
   providers: [],
 })

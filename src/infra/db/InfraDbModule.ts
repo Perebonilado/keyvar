@@ -4,6 +4,7 @@ import { NewsInsightDbConnector } from './connectors/NewsInsightDbConnector';
 import { BusinessEnquiryDbConnector } from './connectors/BusinessEnquiryDbConnector';
 import { BusinessLeadDbConnector } from './connectors/BusinessLeadDbConnector';
 import { JobDbConnector } from './connectors/JobDbConnector';
+import { ServiceDbConnector } from './connectors/ServiceDbConnector';
 
 @Module({
   providers: [
@@ -11,14 +12,16 @@ import { JobDbConnector } from './connectors/JobDbConnector';
     NewsInsightDbConnector,
     BusinessEnquiryDbConnector,
     BusinessLeadDbConnector,
-    JobDbConnector
+    JobDbConnector,
+    ServiceDbConnector
   ],
   exports: [
     ...databaseProviders,
     NewsInsightDbConnector,
     BusinessEnquiryDbConnector,
     BusinessLeadDbConnector,
-    JobDbConnector
+    JobDbConnector,
+    ServiceDbConnector
   ],
 })
 export class InfraDbModule {}

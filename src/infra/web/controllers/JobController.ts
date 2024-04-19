@@ -8,6 +8,7 @@ import {
   UploadedFile,
   UseInterceptors,
   Get,
+  UsePipes,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateJobApplicationHandler } from 'src/business/handlers/Job/CreateJobApplicationHandler';
@@ -17,6 +18,8 @@ import { JobQueryService } from 'src/query/JobQueryService';
 import { JobRoleModel } from 'src/infra/db/models/JobRoleModel';
 import { JobRoleDto } from 'src/dto/JobRoleDto';
 import { CreateJobRoleHandler } from 'src/business/handlers/Job/CreateJobRoleHandler';
+import { CreateJobRoleValidationSchema } from '../zod-validation-schemas/JobValidationSchema';
+import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
 
 @Controller('job')
 export class JobController {
@@ -75,6 +78,7 @@ export class JobController {
   }
 
   @Post('/create-role')
+  @UsePipes(new ZodValidationPipe(CreateJobRoleValidationSchema))
   public async createJobRole(@Body() role: JobRoleDto): Promise<JobRoleModel> {
     try {
       const createdJobRole = await this.createJobRoleHandler.handle({

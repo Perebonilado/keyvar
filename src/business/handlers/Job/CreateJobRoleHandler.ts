@@ -42,8 +42,7 @@ export class CreateJobRoleHandler extends AbstractRequestHandlerTemplate<
           HttpStatus.BAD_REQUEST,
         );
       } else {
-        const createdJobRole =
-          await this.jobRepository.createJobRole(newJobRole);
+        await this.jobRepository.createJobRole(newJobRole);
 
         newJobRole.create();
 

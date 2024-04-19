@@ -1,4 +1,10 @@
-import { Table, Column, Model, DataType, BeforeCreate } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  BeforeCreate,
+} from 'sequelize-typescript';
 import * as moment from 'moment';
 import { generateUUID } from 'src/utils';
 
@@ -6,7 +12,7 @@ import { generateUUID } from 'src/utils';
 export class ServiceModel extends Model<ServiceModel> {
   @Column({
     type: DataType.UUID,
-    allowNull: false,
+    allowNull: true,
     primaryKey: true,
   })
   id: string;
@@ -17,6 +23,27 @@ export class ServiceModel extends Model<ServiceModel> {
     field: 'title',
   })
   title: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    field: 'description',
+  })
+  description: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    field: 'target_audience',
+  })
+  targetAudience: string;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    field: 'price',
+  })
+  price: number;
 
   @Column({
     type: DataType.BOOLEAN,
@@ -45,10 +72,9 @@ export class ServiceModel extends Model<ServiceModel> {
 
   @Column({ type: DataType.UUID, field: 'modified_by', allowNull: true })
   modifiedBy: string;
-  
+
   @BeforeCreate
   static addUUID(instance: ServiceModel) {
     instance.id = generateUUID();
   }
-
 }

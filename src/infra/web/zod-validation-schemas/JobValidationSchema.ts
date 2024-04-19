@@ -9,3 +9,9 @@ export const SaveJobApplication = z.object({
   experience: z.string(),
   isWorkAuthorization: z.boolean(),
 });
+
+
+export const CreateJobRoleValidationSchema = z.object({
+  title: z.string(),
+  isActive: z.boolean()
+})
