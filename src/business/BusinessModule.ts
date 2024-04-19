@@ -8,6 +8,7 @@ import { CreateBusinessEnquiryHandler } from './handlers/BusinessEnquiry/CreateB
 import { IntegrationsModule } from 'src/integrations/IntegrationsModule';
 import { CreateJobApplicantHandler } from './handlers/Job/CreateJobApplicantHandler';
 import { CreateJobApplicationHandler } from './handlers/Job/CreateJobApplicationHandler';
+import { CreateJobRoleHandler } from './handlers/Job/CreateJobRoleHandler';
 
 @Module({
   imports: [QueryModule, InfraRepositoryModule, IntegrationsModule],
@@ -17,7 +18,8 @@ import { CreateJobApplicationHandler } from './handlers/Job/CreateJobApplication
     CreateBusinessLeadHandler,
     CreateBusinessEnquiryHandler,
     CreateJobApplicantHandler,
-    CreateJobApplicationHandler
+    CreateJobApplicationHandler,
+    CreateJobRoleHandler,
   ],
   exports: [
     KeyvarEventEmitter,
@@ -25,7 +27,8 @@ import { CreateJobApplicationHandler } from './handlers/Job/CreateJobApplication
     CreateBusinessLeadHandler,
     CreateBusinessEnquiryHandler,
     CreateJobApplicantHandler,
-    CreateJobApplicationHandler
+    CreateJobApplicationHandler,
+    CreateJobRoleHandler,
   ],
 })
 export class BusinessModule {}

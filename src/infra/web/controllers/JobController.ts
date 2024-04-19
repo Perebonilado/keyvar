@@ -15,6 +15,8 @@ import { JobApplicationDto } from 'src/dto/JobApplicationDto';
 import { SuccessResponse } from '../models/SuccessReponse';
 import { JobQueryService } from 'src/query/JobQueryService';
 import { JobRoleModel } from 'src/infra/db/models/JobRoleModel';
+import { JobRoleDto } from 'src/dto/JobRoleDto';
+import { CreateJobRoleHandler } from 'src/business/handlers/Job/CreateJobRoleHandler';
 
 @Controller('job')
 export class JobController {
@@ -22,6 +24,8 @@ export class JobController {
     @Inject(CreateJobApplicationHandler)
     private createJobApplicationHandler: CreateJobApplicationHandler,
     @Inject(JobQueryService) private jobQueryService: JobQueryService,
+    @Inject(CreateJobRoleHandler)
+    private createJobRoleHandler: CreateJobRoleHandler,
   ) {}
 
   @Post('/apply')
@@ -59,12 +63,30 @@ export class JobController {
   }
 
   @Get('/roles')
-  public async getJobRoles():Promise<JobRoleModel[]> {
+  public async getJobRoles(): Promise<JobRoleModel[]> {
     try {
       return await this.jobQueryService.findAllActiveJobRoles();
     } catch (error) {
       throw new HttpException(
         error?._innerError ?? 'Failed to get job roles',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  @Post('/create-role')
+  public async createJobRole(@Body() role: JobRoleDto): Promise<JobRoleModel> {
+    try {
+      const createdJobRole = await this.createJobRoleHandler.handle({
+        payload: role,
+      });
+
+      return await this.jobQueryService.findJobRoleByTitle(
+        createdJobRole.jobRole.title,
+      );
+    } catch (error) {
+      throw new HttpException(
+        error?._innerError ?? 'Failed to create new role',
         HttpStatus.BAD_REQUEST,
       );
     }

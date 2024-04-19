@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JobApplicationModel } from '../models/JobApplicationModel';
 import { DatabaseError } from 'src/error-handlers/infra/DatabaseError';
 import { JobApplicantModel } from '../models/JobApplicantModel';
+import { JobRoleModel } from '../models/JobRoleModel';
 
 @Injectable()
 export class JobDbConnector {
@@ -24,6 +25,14 @@ export class JobDbConnector {
       throw new DatabaseError(
         'Failed to save job applicant information',
       ).InnerError(error);
+    }
+  }
+
+  public async createJobRole(role: JobRoleModel) {
+    try {
+      return await JobRoleModel.create(role);
+    } catch (error) {
+      throw new DatabaseError('Failed to create job role').InnerError(error);
     }
   }
 }

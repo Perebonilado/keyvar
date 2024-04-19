@@ -41,4 +41,20 @@ export class JobQueryService {
       throw new QueryError('Failed to job roles').InnerError(error);
     }
   }
+
+  public async findJobRoleByTitle(title: string) {
+    try {
+      return await JobRoleModel.findOne({ where: { title } });
+    } catch (error) {
+      throw new QueryError('Failed to job role by title').InnerError(error);
+    }
+  }
+
+  public async findJobRoleById(id: string) {
+    try {
+      return await JobRoleModel.findOne({ where: { id } });
+    } catch (error) {
+      throw new QueryError('Failed to job role by id').InnerError(error);
+    }
+  }
 }
