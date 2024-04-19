@@ -8,8 +8,8 @@ import { BusinessLeadRepository } from 'src/business/repository/BusinessLeadRepo
 import { BusinessLeadSequalizeRepository } from './repository/BusinessLeadSequalizeRepository';
 import { JobRepository } from 'src/business/repository/JobRepository';
 import { JobSequalizeRepository } from './repository/JobSequalizeRepository';
-import { ServiceRepository } from 'src/business/repository/ServiceRepository';
-import { ServiceSequalizeRepository } from './repository/ServiceSequalizeRepository';
+import { PricingPlanRepository } from 'src/business/repository/PricingPlanRepository';
+import { PricingPlanSequalizeRepository } from './repository/PricingPlanSequalizeRepository';
 
 @Module({
   imports: [InfraDbModule],
@@ -31,8 +31,8 @@ import { ServiceSequalizeRepository } from './repository/ServiceSequalizeReposit
       useClass: JobSequalizeRepository,
     },
     {
-      provide: ServiceRepository,
-      useClass: ServiceSequalizeRepository,
+      provide: PricingPlanRepository,
+      useClass: PricingPlanSequalizeRepository,
     },
   ],
   exports: [
@@ -40,7 +40,7 @@ import { ServiceSequalizeRepository } from './repository/ServiceSequalizeReposit
     BusinessEnquiryRepository,
     BusinessLeadRepository,
     JobRepository,
-    ServiceRepository,
+    PricingPlanRepository,
   ],
 })
 export class InfraRepositoryModule {}

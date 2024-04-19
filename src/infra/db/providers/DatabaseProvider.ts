@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import { EnvironmentVariables } from 'src/EnvironmentVariables';
 import { JobRoleModel } from '../models/JobRoleModel';
-import { ServiceModel } from '../models/ServiceModel';
+import { PricingPlanModel } from '../models/PricingPlanModel';
 import { JobApplicantModel } from '../models/JobApplicantModel';
 import { BusinessLeadModel } from '../models/BusinessLeadModel';
 import { NewsInsightSubscriberModel } from '../models/NewsInsightSubscriberModel';
@@ -28,7 +28,7 @@ export const databaseProviders = [
       });
       sequelize.addModels([
         JobRoleModel,
-        ServiceModel,
+        PricingPlanModel,
         JobApplicantModel,
         BusinessLeadModel,
         NewsInsightSubscriberModel,

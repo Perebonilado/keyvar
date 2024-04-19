@@ -6,4 +6,5 @@ export const CreateServiceValidationSchema = z.object({
   targetAudience: z.string(),
   price: z.number(),
   isActive: z.boolean(),
+  category: z.string(),
 });

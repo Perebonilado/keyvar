@@ -8,8 +8,8 @@ import {
 import * as moment from 'moment';
 import { generateUUID } from 'src/utils';
 
-@Table({ tableName: 'service' })
-export class ServiceModel extends Model<ServiceModel> {
+@Table({ tableName: 'pricing_plan' })
+export class PricingPlanModel extends Model<PricingPlanModel> {
   @Column({
     type: DataType.UUID,
     allowNull: true,
@@ -46,6 +46,13 @@ export class ServiceModel extends Model<ServiceModel> {
   price: number;
 
   @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    field: 'category',
+  })
+  category: string;
+
+  @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
     field: 'is_active',
@@ -74,7 +81,7 @@ export class ServiceModel extends Model<ServiceModel> {
   modifiedBy: string;
 
   @BeforeCreate
-  static addUUID(instance: ServiceModel) {
+  static addUUID(instance: PricingPlanModel) {
     instance.id = generateUUID();
   }
 }

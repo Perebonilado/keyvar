@@ -9,7 +9,7 @@ import { IntegrationsModule } from 'src/integrations/IntegrationsModule';
 import { CreateJobApplicantHandler } from './handlers/Job/CreateJobApplicantHandler';
 import { CreateJobApplicationHandler } from './handlers/Job/CreateJobApplicationHandler';
 import { CreateJobRoleHandler } from './handlers/Job/CreateJobRoleHandler';
-import CreateServiceHandler from './handlers/Service/CreateServiceHandler';
+import { CreatePricingPlanHandler } from './handlers/PricingPlans/CreatePricingPlanHandler';
 
 @Module({
   imports: [QueryModule, InfraRepositoryModule, IntegrationsModule],
@@ -21,7 +21,7 @@ import CreateServiceHandler from './handlers/Service/CreateServiceHandler';
     CreateJobApplicantHandler,
     CreateJobApplicationHandler,
     CreateJobRoleHandler,
-    CreateServiceHandler
+    CreatePricingPlanHandler,
   ],
   exports: [
     KeyvarEventEmitter,
@@ -31,7 +31,7 @@ import CreateServiceHandler from './handlers/Service/CreateServiceHandler';
     CreateJobApplicantHandler,
     CreateJobApplicationHandler,
     CreateJobRoleHandler,
-    CreateServiceHandler
+    CreatePricingPlanHandler,
   ],
 })
 export class BusinessModule {}

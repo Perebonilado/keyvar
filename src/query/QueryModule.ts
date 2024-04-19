@@ -4,7 +4,7 @@ import { NewsInsightQueryService } from './NewsInsigtQueryService';
 import { BusinessLeadQueryService } from './BusinessLeadQueryService';
 import { BusinessEnquiryQueryService } from './BusinessEnquiryQueryService';
 import { JobQueryService } from './JobQueryService';
-import { ServicesQueryService } from './ServicesQueryService';
+import { PricingPlanQueryService } from './PricingPlanQueryService';
 
 @Module({
   imports: [InfraDbModule],
@@ -13,14 +13,14 @@ import { ServicesQueryService } from './ServicesQueryService';
     BusinessLeadQueryService,
     BusinessEnquiryQueryService,
     JobQueryService,
-    ServicesQueryService
+    PricingPlanQueryService,
   ],
   exports: [
     NewsInsightQueryService,
     BusinessLeadQueryService,
     BusinessEnquiryQueryService,
     JobQueryService,
-    ServicesQueryService 
+    PricingPlanQueryService,
   ],
 })
 export class QueryModule {}
