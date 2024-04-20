@@ -13,12 +13,15 @@ import { BusinessEnquiryWebModel } from '../models/BusinessEnquiry';
 import { CreateBusinessEnquiryHandler } from 'src/business/handlers/BusinessEnquiry/CreateBusinessEnquiryHandler';
 import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
 import { SubmitBusinessEnquirySchema } from '../zod-validation-schemas/BusinessEnquiryValidationSchema';
+import { MailerService } from 'src/integrations/mailer/services/MailerService';
+import { EnvironmentVariables } from 'src/EnvironmentVariables';
 
 @Controller('enquiry')
 export class BusinessEnquiryController {
   constructor(
     @Inject(CreateBusinessEnquiryHandler)
     private createBusinessEnquiryHandler: CreateBusinessEnquiryHandler,
+    @Inject(MailerService) private mailerService: MailerService,
   ) {}
 
   @Post('/make-enquiry')
@@ -28,6 +31,16 @@ export class BusinessEnquiryController {
   ): Promise<SuccessResponse<BusinessEnquiryWebModel>> {
     try {
       await this.createBusinessEnquiryHandler.handle({ payload });
+      await this.mailerService.sendEmail({
+        receiverEmail: payload.email,
+        subject: 'Enquiry Received',
+        text: 'Your business enquiry has successfully been received',
+      });
+      await this.mailerService.sendEmail({
+        receiverEmail: EnvironmentVariables.config.emailUser,
+        subject: `New Enquiry from ${payload.lastName ?? ''} ${payload.firstName ?? ''}`,
+        text: `Message: ${payload.enquiry}`,
+      });
 
       return {
         data: {} as BusinessEnquiryWebModel,

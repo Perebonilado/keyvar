@@ -24,6 +24,8 @@ import {
   PostModel,
   PostSummaryModel,
 } from 'src/integrations/butter-cms/models/Posts.model';
+import { MailerService } from 'src/integrations/mailer/services/MailerService';
+import { EnvironmentVariables } from 'src/EnvironmentVariables';
 
 @Controller('news-insight')
 export class NewsInsightController {
@@ -33,6 +35,7 @@ export class NewsInsightController {
     @Inject(NewsInsightQueryService)
     private newsInsightQueryService: NewsInsightQueryService,
     @Inject(BlogPostsService) private blogPostsService: BlogPostsService,
+    @Inject(MailerService) private mailerService: MailerService,
   ) {}
 
   @Post('/subscribe')
@@ -47,6 +50,18 @@ export class NewsInsightController {
 
       const createdSubscriber =
         await this.newsInsightQueryService.findOneByEmail(payload.email);
+
+      await this.mailerService.sendEmail({
+        receiverEmail: payload.email,
+        subject: 'News Letter Subscription Successful',
+        text: 'You have successfully subscribed for Keyvar News Letters',
+      });
+
+      await this.mailerService.sendEmail({
+        receiverEmail: EnvironmentVariables.config.emailUser,
+        subject: 'You have a new subscriber!',
+        text: `${payload.email} just subscribed to your news letter service!`,
+      });
 
       return {
         data: createdSubscriber.toDomain(),
@@ -88,7 +103,7 @@ export class NewsInsightController {
   }
 
   @Get('/categories')
-  public async getCategories():Promise<PostCategoryModel[]> {
+  public async getCategories(): Promise<PostCategoryModel[]> {
     try {
       return await this.blogPostsService.getPostCategories();
     } catch (error) {

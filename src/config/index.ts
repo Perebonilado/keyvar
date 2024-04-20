@@ -10,6 +10,9 @@ export interface Config {
   awsStorageBucket: string;
   awsServerLocation: string;
   butterCMSApiKey: string;
+  emailHost: string;
+  emailUser: string;
+  emailPass: string;
 }
 
 export default (): Config => ({
@@ -24,4 +27,7 @@ export default (): Config => ({
   awsStorageBucket: process.env.Aws_Storage_Bucket,
   awsServerLocation: process.env.Aws_Server_Location,
   butterCMSApiKey: process.env.Butter_CMS_API_KEY,
+  emailHost: process.env.Email_host,
+  emailPass: process.env.Email_pass,
+  emailUser: process.env.Email_user
 });
