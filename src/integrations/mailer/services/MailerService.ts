@@ -12,8 +12,13 @@ export class MailerService {
         subject: payload.subject,
         to: payload.receiverEmail,
         text: payload.text,
+        attachments: payload.attachments ? payload.attachments.map((file)=>({
+          filename: file.originalname,
+          content: file.buffer,
+        })) : [],
       });
     } catch (error) {
+      console.log(error)
       throw new HttpException('Failed to send email', HttpStatus.BAD_REQUEST);
     }
   }

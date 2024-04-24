@@ -20,6 +20,8 @@ import { JobRoleDto } from 'src/dto/JobRoleDto';
 import { CreateJobRoleHandler } from 'src/business/handlers/Job/CreateJobRoleHandler';
 import { CreateJobRoleValidationSchema } from '../zod-validation-schemas/JobValidationSchema';
 import { ZodValidationPipe } from 'src/pipes/ZodValidationPipe.pipe';
+import { MailerService } from 'src/integrations/mailer/services/MailerService';
+import { EnvironmentVariables } from 'src/EnvironmentVariables';
 
 @Controller('job')
 export class JobController {
@@ -29,6 +31,7 @@ export class JobController {
     @Inject(JobQueryService) private jobQueryService: JobQueryService,
     @Inject(CreateJobRoleHandler)
     private createJobRoleHandler: CreateJobRoleHandler,
+    @Inject(MailerService) private mailerService: MailerService,
   ) {}
 
   @Post('/apply')
@@ -38,18 +41,38 @@ export class JobController {
     @Body() body: JobApplicationDto,
   ): Promise<SuccessResponse<null>> {
     try {
-      await this.createJobApplicationHandler.handle({
-        payload: {
-          email: body.email,
-          experience: body.experience,
-          firstName: body.firstName,
-          lastName: body.lastName,
-          isWorkAuthorization: body.isWorkAuthorization,
-          roleId: body.roleId,
-          phone: body.phone ?? null,
-          resume: file,
-        },
+      // await this.createJobApplicationHandler.handle({
+      //   payload: {
+      //     email: body.email,
+      //     experience: body.experience,
+      //     firstName: body.firstName,
+      //     lastName: body.lastName,
+      //     isWorkAuthorization: body.isWorkAuthorization,
+      //     roleId: body.roleId,
+      //     phone: body.phone ?? null,
+      //     resume: file,
+      //   },
+      // });
+      await this.mailerService.sendEmail({
+        receiverEmail: EnvironmentVariables.config.emailUser,
+        subject: `Job Application for ${body.roleId}`,
+        text: `
+        Information -
+        Email: ${body.email},
+        First Name: ${body.firstName},
+        Last Name: ${body.lastName},
+        Work Authorization: ${body.isWorkAuthorization ? "Yes" : "No"},
+        Role: ${body.roleId},
+        Phone: ${body.phone}
+        `,
+        attachments: [file],
       });
+
+      await this.mailerService.sendEmail({
+        receiverEmail: body.email,
+        subject: "Job application received",
+        text: `Your application for the role of ${body.roleId} has been received and you should hear back shortly.`
+      })
 
       return {
         data: null,
