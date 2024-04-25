@@ -47,16 +47,16 @@ export class NewsInsightController {
     @Body() payload: CreateNewsInsightSubscriberDto,
   ): Promise<SuccessResponse<NewsInsightSubscriberWebModel>> {
     try {
-      await this.createNewsInsightSubscriberHandler.handle({
-        subscriber: payload,
-      });
+      // await this.createNewsInsightSubscriberHandler.handle({
+      //   subscriber: payload,
+      // });
 
       await this.manageMailChimpAudience.addMemberToList({
         email: payload.email,
       });
 
-      const createdSubscriber =
-        await this.newsInsightQueryService.findOneByEmail(payload.email);
+      // const createdSubscriber =
+      //   await this.newsInsightQueryService.findOneByEmail(payload.email);
 
       await this.mailerService.sendEmail({
         receiverEmail: payload.email,
@@ -71,7 +71,7 @@ export class NewsInsightController {
       });
 
       return {
-        data: createdSubscriber.toDomain(),
+        data: null,
         message: 'News Insight Subscriber successfully created',
         status: HttpStatus.CREATED,
       };
