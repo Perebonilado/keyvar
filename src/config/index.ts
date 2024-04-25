@@ -13,6 +13,9 @@ export interface Config {
   emailHost: string;
   emailUser: string;
   emailPass: string;
+  mailChimpApiKey: string;
+  mailChimpServerPrefix: string;
+  mailChimpAudienceId: string;
 }
 
 export default (): Config => ({
@@ -29,5 +32,8 @@ export default (): Config => ({
   butterCMSApiKey: process.env.Butter_CMS_API_KEY,
   emailHost: process.env.Email_host,
   emailPass: process.env.Email_pass,
-  emailUser: process.env.Email_user
+  emailUser: process.env.Email_user,
+  mailChimpApiKey: process.env.MAILCHIMP_API_KEY,
+  mailChimpServerPrefix: process.env.MAILCHIMP_SERVER_PREFIX,
+  mailChimpAudienceId: process.env.MAILCHIMP_AUDIENCE_ID
 });

@@ -26,6 +26,7 @@ import {
 } from 'src/integrations/butter-cms/models/Posts.model';
 import { MailerService } from 'src/integrations/mailer/services/MailerService';
 import { EnvironmentVariables } from 'src/EnvironmentVariables';
+import { ManageMailChimpAudience } from 'src/integrations/mail-chimp/services/ManageMailChimpAudience';
 
 @Controller('news-insight')
 export class NewsInsightController {
@@ -36,6 +37,8 @@ export class NewsInsightController {
     private newsInsightQueryService: NewsInsightQueryService,
     @Inject(BlogPostsService) private blogPostsService: BlogPostsService,
     @Inject(MailerService) private mailerService: MailerService,
+    @Inject(ManageMailChimpAudience)
+    private manageMailChimpAudience: ManageMailChimpAudience,
   ) {}
 
   @Post('/subscribe')
@@ -46,6 +49,10 @@ export class NewsInsightController {
     try {
       await this.createNewsInsightSubscriberHandler.handle({
         subscriber: payload,
+      });
+
+      await this.manageMailChimpAudience.addMemberToList({
+        email: payload.email,
       });
 
       const createdSubscriber =

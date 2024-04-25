@@ -18,7 +18,6 @@ export class MailerService {
         })) : [],
       });
     } catch (error) {
-      console.log(error)
       throw new HttpException('Failed to send email', HttpStatus.BAD_REQUEST);
     }
   }
