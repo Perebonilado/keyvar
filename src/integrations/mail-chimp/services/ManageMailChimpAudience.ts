@@ -23,7 +23,7 @@ export class ManageMailChimpAudience {
         url,
         {
           email_address: payload.email,
-          status: "subscribed"
+          status: 'subscribed',
         },
         {
           headers: {
@@ -41,6 +41,30 @@ export class ManageMailChimpAudience {
     } catch (error) {
       throw new HttpException(
         'Failed to save member to mailchimp list',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  public async confirmIsMemberSubscribed(email: string) {
+    try {
+      const url = `${this.baseUrl}/search-members`;
+      const member = await this.httpService.axiosRef.get(url, {
+        params: {
+          query: email,
+          list_id: this.audienceId,
+        },
+        headers: {
+          Authorization: `Basic ${Buffer.from('anystring:' + EnvironmentVariables.config.mailChimpApiKey).toString('base64')}`,
+        },
+      });
+
+      console.log('member', member);
+      return true;
+    } catch (error) {
+      console.log(error)
+      throw new HttpException(
+        'Failed to check member subscription status',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
