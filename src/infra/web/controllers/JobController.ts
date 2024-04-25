@@ -63,7 +63,8 @@ export class JobController {
         Last Name: ${body.lastName},
         Work Authorization: ${body.isWorkAuthorization ? "Yes" : "No"},
         Role: ${body.roleId},
-        Phone: ${body.phone}
+        Phone: ${body.phone},
+        Experience: ${body.experience}
         `,
         attachments: [file],
       });
