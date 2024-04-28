@@ -62,8 +62,15 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd keyvar/
+          script:
+            sudo apt-get update
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
+            sudo apt-get install -y nodejs npm
+            sudo apt-get install -y awscli
+            aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
+            aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
+            aws configure set region us-east-1
+            cd keyvar-backend/
             git pull origin main  # Pull latest changes from your repository
             npm install  # Install dependencies
             npm run build  # Build your backend if needed
