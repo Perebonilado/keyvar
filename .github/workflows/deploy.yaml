@@ -30,6 +30,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+      
+      - name: Update package lists
+        run: sudo apt-get update
 
       - name: Install Node.js and npm
         run: |
