@@ -34,17 +34,6 @@ jobs:
       - name: Update package lists
         run: sudo apt-get update
 
-      - name: Install Node.js and npm
-        run: |
-          curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
-          sudo apt-get install -y nodejs npm
-
-      - name: Install Git
-        run: sudo apt-get install -y git
-
-      - name: Install PM2
-        run: sudo npm install -g pm2
-
       - name: Install AWS CLI
         run: |
           sudo apt-get update
@@ -62,7 +51,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          script:
+          script: |
             sudo apt-get update
             curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
             sudo apt-get install -y nodejs npm
