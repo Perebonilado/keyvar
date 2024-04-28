@@ -36,7 +36,7 @@ jobs:
 
       - name: Install Node.js and npm
         run: |
-          curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+          curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
           sudo apt-get install -y nodejs npm
 
       - name: Install Git
