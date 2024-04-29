@@ -58,7 +58,6 @@ jobs:
             aws configure set region us-east-1
             cd keyvar-backend/
             git pull origin main
-            sudo npm install -g @nestjs/cli
             sudo npm install  # Install dependencies
             sudo nest build  # Build your backend if needed
             pm2 restart dist/main.js --name mylo-app  # Restart your backend server using PM2 or other process manager
