@@ -52,15 +52,12 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            apt install update
-            curl -fsSL https://deb.nodesource.com/setup_lts.x | bash
-            apt install -y nodejs npm awscli git
+            sudo yum update
             aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
             aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
             aws configure set region us-east-1
-            git clone https://github.com/Mannyasoh/keyvar-backend.git
             cd keyvar-backend/
-            npm install -g pm2
-            npm install  # Install dependencies
-            npm run build  # Build your backend if needed
+            git pull origin main
+            sudo npm install  # Install dependencies
+            sudo npm run build  # Build your backend if needed
             pm2 restart app.js  # Restart your backend server using PM2 or other process manager
