@@ -76,7 +76,6 @@ export class NewsInsightController {
         status: HttpStatus.CREATED,
       };
     } catch (error) {
-      console.log(error)
       throw new HttpException(
         error?._innerError ?? 'Subscriber already exists',
         HttpStatus.BAD_REQUEST,
