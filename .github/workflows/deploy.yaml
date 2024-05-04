@@ -10,22 +10,22 @@ jobs:
     name: Deploy Backend
     runs-on: ubuntu-latest
 
-    env:
-      Database_Port: 3306
-      Database_Username: admin
-      Database_Password: ${{ secrets.DB_PASSWORD }}
-      Database: keyvar-test
-      Aws_Access_Key: ${{ secrets.AWS_ACCESS_KEY }}
-      Aws_Secret_Key: ${{ secrets.AWS_SECRET_KEY }}
-      Aws_Storage_Bucket: keyvar-bucket
-      Aws_Server_Location: eu-north-1
-      Butter_CMS_API_KEY: f2120de7dcdcb2ea7c962e08347a74895dff4b85
-      Email_host: smtp.gmail.com
-      Email_user: perebonilado@gmail.com
-      Email_pass: ${{ secrets.EMAIL_PASSWORD }}
-      MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-      MAILCHIMP_SERVER_PREFIX: us22
-      MAILCHIMP_AUDIENCE_ID: 9ddc77f2df
+    # env:
+    #   Database_Port: 3306
+    #   Database_Username: admin
+    #   Database_Password: ${{ secrets.DB_PASSWORD }}
+    #   Database: keyvar-test
+    #   Aws_Access_Key: ${{ secrets.AWS_ACCESS_KEY }}
+    #   Aws_Secret_Key: ${{ secrets.AWS_SECRET_KEY }}
+    #   Aws_Storage_Bucket: keyvar-bucket
+    #   Aws_Server_Location: eu-north-1
+    #   Butter_CMS_API_KEY: f2120de7dcdcb2ea7c962e08347a74895dff4b85
+    #   Email_host: smtp.gmail.com
+    #   Email_user: perebonilado@gmail.com
+    #   Email_pass: ${{ secrets.EMAIL_PASSWORD }}
+    #   MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+    #   MAILCHIMP_SERVER_PREFIX: us22
+    #   MAILCHIMP_AUDIENCE_ID: 9ddc77f2df
 
     steps:
       - name: Checkout Repository
