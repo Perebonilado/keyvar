@@ -37,7 +37,11 @@ export const databaseProviders = [
         JobStatusModel,
       ]);
 
-      await sequelize.sync();
+      try {
+        await sequelize.sync();
+      } catch (error) {
+        console.log(error);
+      }
 
       return sequelize;
     },
