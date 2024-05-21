@@ -25,7 +25,6 @@ jobs:
     #   Email_pass: ${{ secrets.EMAIL_PASSWORD }}
     #   MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
     #   MAILCHIMP_SERVER_PREFIX: us22
-    #   MAILCHIMP_AUDIENCE_ID: 9ddc77f2df
 
     steps:
       - name: Checkout Repository
