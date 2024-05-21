@@ -24,7 +24,7 @@ jobs:
     #   Email_user: perebonilado@gmail.com
     #   Email_pass: ${{ secrets.EMAIL_PASSWORD }}
     #   MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-    #   MAILCHIMP_SERVER_PREFIX: us2
+    #   MAILCHIMP_SERVER_PREFIX: us22
 
     steps:
       - name: Checkout Repository
