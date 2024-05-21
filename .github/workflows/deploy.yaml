@@ -59,4 +59,4 @@ jobs:
             git pull origin main
             sudo npm install  # Install dependencies
             sudo nest build  # Build your backend if needed
-            pm2 restart dist/main.js --name mylo-app  # Restart your backend server using PM2 or other process manager
+            pm2 restart dist/main.js --name keyvar  # Restart your backend server using PM2 or other process manager
