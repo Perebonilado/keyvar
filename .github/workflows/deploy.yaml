@@ -44,3 +44,4 @@ jobs:
             sudo npm install  # Install dependencies
             sudo nest build  # Build your backend if needed
             pm2 restart keyvar-prod --update-env  # Restart your backend server using PM2 or other process manager
+            pm2 logs
