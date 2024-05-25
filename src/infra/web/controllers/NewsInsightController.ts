@@ -55,9 +55,6 @@ export class NewsInsightController {
         email: payload.email,
       });
 
-      // const createdSubscriber =
-      //   await this.newsInsightQueryService.findOneByEmail(payload.email);
-
       await this.mailerService.sendEmail({
         receiverEmail: payload.email,
         subject: 'News Letter Subscription Successful',
