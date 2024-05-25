@@ -9,23 +9,7 @@ jobs:
   deploy:
     name: Deploy Backend
     runs-on: ubuntu-latest
-
-    # env:
-    #   Database_Port: 3306
-    #   Database_Username: admin
-    #   Database_Password: ${{ secrets.DB_PASSWORD }}
-    #   Database: keyvar-test
-    #   Aws_Access_Key: ${{ secrets.AWS_ACCESS_KEY }}
-    #   Aws_Secret_Key: ${{ secrets.AWS_SECRET_KEY }}
-    #   Aws_Storage_Bucket: keyvar-bucket
-    #   Aws_Server_Location: eu-north-1
-    #   Butter_CMS_API_KEY: f2120de7dcdcb2ea7c962e08347a74895dff4b85
-    #   Email_host: smtp.gmail.com
-    #   Email_user: perebonilado@gmail.com
-    #   Email_pass: ${{ secrets.EMAIL_PASSWORD }}
-    #   MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
-    #   MAILCHIMP_SERVER_PREFIX: us22
-
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -33,16 +17,16 @@ jobs:
       - name: Update package lists
         run: sudo apt-get update
 
-      - name: Install AWS CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y awscli
+      # - name: Install AWS CLI
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y awscli
 
-      - name: Configure AWS Credentials
-        run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
-          aws configure set region us-east-1
+      # - name: Configure AWS Credentials
+      #   run: |
+      #     aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
+      #     aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
+      #     aws configure set region us-east-1
 
       - name: SSH to EC2 Instance and Deploy Backend
         uses: appleboy/ssh-action@master
@@ -52,9 +36,9 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo yum update
-            aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
-            aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
-            aws configure set region us-east-1
+            # aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
+            # aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
+            # aws configure set region us-east-1
             cd keyvar-backend/
             git pull origin main
             sudo npm install  # Install dependencies
