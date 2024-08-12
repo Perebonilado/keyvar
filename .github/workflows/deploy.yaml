@@ -40,6 +40,7 @@ jobs:
             # aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
             # aws configure set region us-east-1
             cd keyvar-backend/
+            cat .env | grep PORT
             git pull origin main
             sudo npm install  # Install dependencies
             sudo nest build  # Build your backend if needed
