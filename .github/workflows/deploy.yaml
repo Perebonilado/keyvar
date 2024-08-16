@@ -40,7 +40,8 @@ jobs:
             # aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
             # aws configure set region us-east-1
             cd keyvar-backend/
-            git pull origin main
+            git remote add keyvar https://github.com/Perebonilado/keyvar.git
+            git pull keyvar main
             sudo npm install  # Install dependencies
             sudo nest build  # Build your backend if needed
             pm2 restart keyvar-prod --update-env  # Restart your backend server using PM2 or other process manager
