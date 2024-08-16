@@ -31,16 +31,16 @@ export class BusinessEnquiryController {
   ): Promise<SuccessResponse<BusinessEnquiryWebModel>> {
     try {
       await this.createBusinessEnquiryHandler.handle({ payload });
-      // await this.mailerService.sendEmail({
-      //   receiverEmail: payload.email,
-      //   subject: 'Enquiry Received',
-      //   text: 'Your business enquiry has successfully been received',
-      // });
-      // await this.mailerService.sendEmail({
-      //   receiverEmail: EnvironmentVariables.config.emailUser,
-      //   subject: `New Enquiry from ${payload.lastName ?? ''} ${payload.firstName ?? ''}`,
-      //   text: `Message: ${payload.enquiry}`,
-      // });
+      await this.mailerService.sendEmail({
+        receiverEmail: EnvironmentVariables.config.emailUser,
+        subject: `New Enquiry from ${payload.lastName ?? ''} ${payload.firstName ?? ''}`,
+        text: `Message: ${payload.enquiry}`,
+      });
+      await this.mailerService.sendEmail({
+        receiverEmail: payload.email,
+        subject: 'Enquiry Received',
+        text: 'Your business enquiry has successfully been received',
+      });
 
       return {
         data: {} as BusinessEnquiryWebModel,
