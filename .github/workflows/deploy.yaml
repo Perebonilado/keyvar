@@ -40,7 +40,7 @@ jobs:
             aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
             aws configure set region us-east-1
             cd keyvar-backend/
-            git pull origin main
+            git pull keyvar main
             chmod +x keyvar.sh
             ./keyvar.sh
             sudo npm install  # Install dependencies
