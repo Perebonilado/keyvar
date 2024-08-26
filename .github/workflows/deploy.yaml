@@ -43,7 +43,8 @@ jobs:
             git pull keyvar main
             chmod +x keyvar.sh
             ./keyvar.sh
+            cat .env
             sudo npm install  # Install dependencies
             sudo nest build  # Build your backend if needed
-            pm2 restart dist/main.js --name keyvar  
+            pm2 restart keyvar --update-env  
             pm2 logs 
