@@ -43,5 +43,6 @@ jobs:
             cat .env
             sudo npm install  # Install dependencies
             sudo nest build  # Build your backend if needed
+            pm2 stop keyvar
             pm2 restart dist/main.js --name keyvar-backend  
             pm2 logs keyvar-backend
