@@ -42,7 +42,7 @@ jobs:
             rm -rf keyvar-bckend/
             git clone https://github.com/Perebonilado/keyvar.git
             cd keyvar-backend/
-            git pull keyvar main
+            git pull origin main
             chmod +x keyvar.sh
             ./keyvar.sh
             cat .env
