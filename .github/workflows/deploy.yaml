@@ -36,9 +36,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo yum update
-            sudo rm -rf keyvar-backend/
-            git clone https://github.com/Perebonilado/keyvar.git
-            cd keyvar-backend/
+            cd keyvar/
             git pull origin main
             chmod +x keyvar.sh
             ./keyvar.sh
