@@ -36,13 +36,13 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo yum update
-            # aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
-            # aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
-            # aws configure set region us-east-1
+            aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY }}
+            aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
+            aws configure set region us-east-1
             cd keyvar-backend/
-            git remote add keyvar https://github.com/Perebonilado/keyvar.git
-            git pull keyvar main
+            git pull origin main
+            chmod +x keyvar.sh
+            ./keyvar.sh
             sudo npm install  # Install dependencies
             sudo nest build  # Build your backend if needed
-            pm2 restart keyvar-prod --update-env  # Restart your backend server using PM2 or other process manager
-            pm2 logs
+            pm2 restart dist/main.js --name keyvar  
